@@ -1,0 +1,20 @@
+#ifndef __TECMA_CONSTANTS_H
+#define __TECMA_CONSTANTS_H
+
+#ifndef TECMA_ENGINE_NAME
+    #define TECMA_ENGINE_NAME "Tecma Engine"
+#endif
+
+#ifndef TECMA_ENGINE_VERSION
+    #define TECMA_ENGINE_VERSION 1
+#endif
+
+#ifndef TECMA_ENGINE_INIT_WINDOW_WIDTH
+    #define TECMA_ENGINE_INIT_WINDOW_WIDTH 1000
+#endif
+
+#ifndef TECMA_ENGINE_INIT_WINDOW_HEIGHT
+    #define TECMA_ENGINE_INIT_WINDOW_HEIGHT 600
+#endif
+
+#endif
