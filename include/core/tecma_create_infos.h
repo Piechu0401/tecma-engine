@@ -22,13 +22,13 @@ struct TecmaCreateInfo {
 
 };
 
-struct TecmaApplicationCreateInfo : TecmaCreateInfo {
-    TecmaU32 windowInitWidth;
-    TecmaU32 windowInitHeight;
-    TecmaU32 applicationVersion;
-    TecmaText applicationName;
-    TecmaU32 tecmaEngineArgumentsCount;
-    TecmaText tecmaEngineArguments[];
+struct TecmaApplicationCreateInfo  {
+    TecmaU32 _windowInitWidth;
+    TecmaU32 _windowInitHeight;
+    TecmaU32 _applicationVersion;
+    TecmaText _applicationName;
+    TecmaI32 _tecmaEngineArgumentsCount;
+    TecmaText* _tecmaEngineArguments;
 
 };
 

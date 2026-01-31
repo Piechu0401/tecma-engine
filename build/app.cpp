@@ -1,19 +1,18 @@
 #include "../include/engine/tecma_engine.h"
 
 int main(
-    const int TECMA_ARGUMENTS_COUNT,
+    const TecmaI32 TECMA_ARGUMENTS_COUNT,
     const char* TECMA_ARGUMENTS[]
 ) {
     TecmaApplicationCreateInfo _applicationInfo{
-        .applicationName = TECMA_ENGINE_NAME,
-        .applicationVersion = TECMA_ENGINE_VERSION,
-        .windowInitWidth = TECMA_ENGINE_INIT_WINDOW_WIDTH,
-        .windowInitHeight = TECMA_ENGINE_INIT_WINDOW_HEIGHT,
-        .tecmaEngineArguments = TECMA_ARGUMENTS,
-        .tecmaEngineArgumentsCount = TECMA_ARGUMENTS_COUNT 
+        ._windowInitWidth = TECMA_ENGINE_INIT_WINDOW_WIDTH,
+        ._windowInitHeight = TECMA_ENGINE_INIT_WINDOW_HEIGHT,
+        ._applicationVersion = TECMA_ENGINE_VERSION,
+        ._applicationName = TECMA_ENGINE_NAME,
+        ._tecmaEngineArgumentsCount = TECMA_ARGUMENTS_COUNT,
+        ._tecmaEngineArguments = TECMA_ARGUMENTS 
     };
     
-
     TecmaEngine::TecmaApplication _application;
 
     try{
@@ -24,7 +23,9 @@ int main(
     } catch(
         TecmaResult Result
     ) {
-
+        throw TecmaError(
+            Result
+        );     
 
     }
 

@@ -13,6 +13,10 @@
     #include "tecma_enums.h"
 #endif
 
+#ifndef __TECMA_ERROR_H
+    #include "tecma_error.h"
+#endif
+
 #ifndef __TECMA_OS_H
     #include "tecma_os.h"
 #endif

@@ -10,31 +10,6 @@
 #include "../core/tecma_core.h"
 
 namespace TecmaPlatform {
-    struct TecmaWindowModuleCreateInfo : TecmaCreateInfo {
-        signed int _x;
-        signed int _y;
-        unsigned int _width;
-        unsigned int _height;
-        const char* _windowTitle;
-        unsigned int _fullscreen : 1;    
-
-        #if defined(__linux__)
-            Window _parent;
-            unsigned int _borderWidth;
-            int _depth;
-            unsigned int _class;
-            Visual* _visual;
-            unsigned long _valueMask;
-            XSetWindowAttributes* _attributes;
-        #endif
-
-        const TecmaResult ValidInfo() override {
-            return TECMA_RESULT_SUCCESS;
-
-        };
-
-    };
-
     struct TecmaWindowModule {
         explicit TecmaWindowModule() noexcept;
 
