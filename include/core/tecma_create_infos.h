@@ -6,21 +6,12 @@
 #endif
 
 #ifndef __TECMA_OS_H
-    #include "tecma_os.h"
+    #include "../platform/tecma_os.h"
 #endif
 
 #ifndef __TECMA_TYPES_H
     #include "tecma_types.h"
 #endif
-
-struct TecmaCreateInfo {
-    virtual ~TecmaCreateInfo();
-    virtual const TecmaResult ValidInfo();
-    virtual TecmaCreateInfo& operator=(
-        const TecmaCreateInfo& other
-    );
-
-};
 
 struct TecmaApplicationCreateInfo  {
     TecmaU32 _windowInitWidth;
@@ -29,16 +20,17 @@ struct TecmaApplicationCreateInfo  {
     TecmaText _applicationName;
     TecmaI32 _tecmaEngineArgumentsCount;
     TecmaText* _tecmaEngineArguments;
+    TecmaApplicationType _tecmaEngineApplicationType;
 
 };
 
-struct TecmaWindowModuleCreateInfo : TecmaCreateInfo {
+struct TecmaWindowModuleCreateInfo {
     TecmaI32 _x;
     TecmaI32 _y;
     TecmaU32 _width;
     TecmaU32 _height;
     TecmaText _windowTitle;
-    TecmaU32 _fullscreen : 1;    
+    TecmaBool _fullscreen;    
 
     #if __TECMA_USING_OS == 0
         Window _parent;
@@ -49,6 +41,16 @@ struct TecmaWindowModuleCreateInfo : TecmaCreateInfo {
         unsigned long _valueMask;
         XSetWindowAttributes* _attributes;
     #endif
+
+};
+
+struct TecmaInstanceCreateInfo {
+    const char* const* _exts;
+    unsigned int _extCount;
+    const char* const* _lays;
+    unsigned int _layCount;
+    const char* _tecmaApplicationName;
+    unsigned int _tecmaApplicationVersion;
 
 };
 

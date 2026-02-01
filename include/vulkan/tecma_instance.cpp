@@ -4,8 +4,8 @@ namespace TecmaVulkan {
     TecmaInstance::TecmaInstance() noexcept {}
 
     void TecmaInstance::initTecmaEngineApplicationInfo(
-        const char* tecmaApplicationName,
-        unsigned int tecmaApplicationVersion
+        TecmaText tecmaApplicationName,
+        const TecmaU32& tecmaApplicationVersion
     ) {
         _applicationInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
         _applicationInfo.pNext = NULL;
@@ -15,9 +15,26 @@ namespace TecmaVulkan {
 
     }
 
+    TecmaBool TecmaInstance::layersAvailable(
+        TecmaTexts layerNames,
+        const TecmaU32& layerCount    
+    ) {
+        return TECMA_TRUE;
+
+    }
+
+    TecmaBool TecmaInstance::extensionsAvailable(
+        TecmaTexts extensionNames,
+        const TecmaU32& extensionCount    
+    ) {
+        return TECMA_TRUE;
+
+    }
+
     const VkResult TecmaCreateInstance(
         TecmaInstance& Instance,
-        const TecmaInstanceCreateInfo* InstanceInfo  
+        const TecmaInstanceCreateInfo* InstanceInfo,
+        const VkAllocationCallbacks* AllocCalls  
     ) {
         if(
             !Instance.layersAvailable(
@@ -50,7 +67,7 @@ namespace TecmaVulkan {
 
         return vkCreateInstance(
             &Info,
-            InstanceInfo->_allocCalls,
+            AllocCalls,
             &Instance._instance
         );
 
@@ -58,11 +75,11 @@ namespace TecmaVulkan {
 
     void TecmaDestroyInstance(
         TecmaInstance& Instance,
-        const VkAllocationCallbacks& AllocCalls
+        const VkAllocationCallbacks* AllocCalls
     ) {
         vkDestroyInstance(
             Instance._instance,
-            &AllocCalls
+            AllocCalls
         );
 
     }

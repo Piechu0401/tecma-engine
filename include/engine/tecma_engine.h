@@ -14,8 +14,8 @@ namespace TecmaEngine {
         );
 
         private:
-            TecmaVulkan::TecmaVulkanModule* VulkanModule;
-            TecmaPlatform::TecmaWindowModule* WindowModule;
+            TecmaVulkan::TecmaVulkanModule* _vulkanModule;
+            TecmaPlatform::TecmaWindowModule* _windowModule;
 
     };
 

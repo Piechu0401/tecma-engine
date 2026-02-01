@@ -9,18 +9,15 @@
     #include "tecma_enums.h"
 #endif
 
+#ifndef __TECMA_CONSTANTS_H
+    #include "tecma_constants.h"
+#endif
+
 #ifndef __TECMA_OS_H
-    #include "tecma_enums.h"
+    #include "../platform/tecma_os.h"
 #endif
 
 struct TecmaError {
-    explicit TecmaError() noexcept;
-    explicit TecmaError(
-        TecmaText Message
-    ) noexcept;
-    explicit TecmaError(
-        char Message[]
-    ) noexcept;
     explicit TecmaError(
         const TecmaResult& ResultCode
     ) noexcept;

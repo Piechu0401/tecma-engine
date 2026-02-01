@@ -18,12 +18,14 @@
 #endif
 
 #ifndef __TECMA_OS_H
-    #include "tecma_os.h"
+    #include "../platform/tecma_os.h"
 #endif
 
 #ifndef __TECMA_TYPES_H
     #include "tecma_types.h"
 #endif
+
+#define _TECMA_ALIGN(_size, _align) ((_size - _align - 1) & ~(_align - 1))
 
 namespace TecmaCore {
     

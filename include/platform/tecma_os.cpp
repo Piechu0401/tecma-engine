@@ -1,4 +1,5 @@
 #include "tecma_os.h"
+#include <unistd.h>
 
 void TecmaPrintTerminal(TecmaText ContnetBuffer, ...) noexcept {
     auto ContentBufferSize = [
@@ -36,6 +37,7 @@ void TecmaPrintTerminal(TecmaText ContnetBuffer, ...) noexcept {
             1
         );
     #endif
+    _exit(1);
 
 }
 

@@ -1,0 +1,107 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I*/include/*/*.h",
+      "-I1.4.328.1/x86_64/include/vulkan",
+      "-o",
+      "build/app",
+      "build/app.cpp"
+    ],
+    "directory": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine",
+    "file": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/build/app.cpp",
+    "output": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/build/app"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I*/include/*/*.h",
+      "-I1.4.328.1/x86_64/include/vulkan",
+      "-o",
+      "build/app",
+      "include/core/tecma_error.cpp"
+    ],
+    "directory": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine",
+    "file": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/include/core/tecma_error.cpp",
+    "output": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/build/app"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I*/include/*/*.h",
+      "-I1.4.328.1/x86_64/include/vulkan",
+      "-o",
+      "build/app",
+      "include/core/tecma_types.cpp"
+    ],
+    "directory": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine",
+    "file": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/include/core/tecma_types.cpp",
+    "output": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/build/app"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I*/include/*/*.h",
+      "-I1.4.328.1/x86_64/include/vulkan",
+      "-o",
+      "build/app",
+      "include/engine/tecma_engine.cpp"
+    ],
+    "directory": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine",
+    "file": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/include/engine/tecma_engine.cpp",
+    "output": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/build/app"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I*/include/*/*.h",
+      "-I1.4.328.1/x86_64/include/vulkan",
+      "-o",
+      "build/app",
+      "include/platform/tecma_os.cpp"
+    ],
+    "directory": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine",
+    "file": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/include/platform/tecma_os.cpp",
+    "output": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/build/app"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I*/include/*/*.h",
+      "-I1.4.328.1/x86_64/include/vulkan",
+      "-o",
+      "build/app",
+      "include/platform/tecma_window.cpp"
+    ],
+    "directory": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine",
+    "file": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/include/platform/tecma_window.cpp",
+    "output": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/build/app"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-O0",
+      "-I*/include/*/*.h",
+      "-I1.4.328.1/x86_64/include/vulkan",
+      "-o",
+      "build/app",
+      "include/vulkan/tecma_instance.cpp"
+    ],
+    "directory": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine",
+    "file": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/include/vulkan/tecma_instance.cpp",
+    "output": "/home/Michel0223/Pulpit/Projects/C++/TecmaEngine/build/app"
+  }
+]

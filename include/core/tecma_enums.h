@@ -13,4 +13,10 @@ enum TecmaResult {
     TECMA_RESULT_X_CREATE_WINDOW_BAD_COLOR = 12,
 };
 
+enum TecmaApplicationType {
+    TECMA_ENGINE_APPLICATION = -1,
+    TECMA_ENGINE_CLIENT_APPLICATION = 1,
+
+};
+
 #endif
