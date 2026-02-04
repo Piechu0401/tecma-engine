@@ -5,22 +5,12 @@ int main(
     const char* TECMA_ARGUMENTS[]
 ) {
     TecmaApplicationCreateInfo _applicationInfo{
-        ._windowInitWidth = TECMA_ENGINE_INIT_WINDOW_WIDTH,
-        ._windowInitHeight = TECMA_ENGINE_INIT_WINDOW_HEIGHT,
-        ._applicationVersion = TECMA_ENGINE_VERSION,
-        ._applicationName = TECMA_ENGINE_NAME,
         ._tecmaEngineArgumentsCount = TECMA_ARGUMENTS_COUNT,
         ._tecmaEngineArguments = TECMA_ARGUMENTS,
         ._tecmaEngineApplicationType =  TECMA_ENGINE_APPLICATION
     }; 
     
     TecmaEngine::TecmaApplication _application;
-
-    // TecmaCreateProcess<const TecmaResult, TecmaEngine::TecmaApplication&, const TecmaApplicationCreateInfo *>(
-    //     TecmaEngine::InitTecmaApplication,
-    //     _application,
-    //     &_applicationInfo    
-    // );
 
     InitTecmaApplication(
         _application,
@@ -33,3 +23,11 @@ int main(
 
 // basic shitty command to compile
 // bear -- g++ -O0 build/app.cpp include/*/*.cpp -I*/include/*/*.h -I1.4.328.1/x86_64/include/vulkan -o app -lvulkan -lX11
+
+// here I will place somehow useful commented shit that maybe will get its use in the future
+
+    // TecmaCreateProcess<const TecmaResult, TecmaEngine::TecmaApplication&, const TecmaApplicationCreateInfo *>(
+    //     TecmaEngine::InitTecmaApplication,
+    //     _application,
+    //     &_applicationInfo    
+    // );

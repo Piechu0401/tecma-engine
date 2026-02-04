@@ -61,6 +61,7 @@ inline void TecmaCreateProcess(
             ProcessFunction(
                 ProcessFunctionArgs... 
             );
+            
             syscall(
                 __NR_exit,
                 0

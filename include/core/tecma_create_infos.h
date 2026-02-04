@@ -14,10 +14,6 @@
 #endif
 
 struct TecmaApplicationCreateInfo  {
-    TecmaU32 _windowInitWidth;
-    TecmaU32 _windowInitHeight;
-    TecmaU32 _applicationVersion;
-    TecmaText _applicationName;
     TecmaI32 _tecmaEngineArgumentsCount;
     TecmaText* _tecmaEngineArguments;
     TecmaApplicationType _tecmaEngineApplicationType;
@@ -29,18 +25,10 @@ struct TecmaWindowModuleCreateInfo {
     TecmaI32 _y;
     TecmaU32 _width;
     TecmaU32 _height;
+    TecmaU32 _borderWidth;
     TecmaText _windowTitle;
-    TecmaBool _fullscreen;    
-
-    #if __TECMA_USING_OS == 0
-        Window _parent;
-        unsigned int _borderWidth;
-        int _depth;
-        unsigned int _class;
-        Visual* _visual;
-        unsigned long _valueMask;
-        XSetWindowAttributes* _attributes;
-    #endif
+    TecmaBool _fullscreen;
+    TecmaBool _main;    
 
 };
 

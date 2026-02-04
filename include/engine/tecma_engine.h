@@ -8,18 +8,18 @@ namespace TecmaEngine {
     struct TecmaApplication {
         explicit TecmaApplication() noexcept;
 
-        friend const TecmaResult InitTecmaApplication(
+        friend void InitTecmaApplication(
             TecmaApplication& Application,
             const TecmaApplicationCreateInfo* ApplicationInfo 
         );
 
         private:
-            TecmaVulkan::TecmaVulkanModule* _vulkanModule;
-            TecmaPlatform::TecmaWindowModule* _windowModule;
+            TecmaVulkan::TecmaVulkanModule _vulkanModule;
+            TecmaPlatform::TecmaWindowModule _windowModule;
 
     };
 
-    const TecmaResult InitTecmaApplication(
+    void InitTecmaApplication(
         TecmaApplication& Application,
         const TecmaApplicationCreateInfo* ApplicationInfo 
     );

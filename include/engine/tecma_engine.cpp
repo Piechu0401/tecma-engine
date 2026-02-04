@@ -1,21 +1,30 @@
 #include "tecma_engine.h"
+#include <X11/Xlib.h>
 #include <unistd.h>
 
 namespace TecmaEngine {
     TecmaApplication::TecmaApplication() noexcept {};
 
-    const TecmaResult InitTecmaApplication(
+    void InitTecmaApplication(
         TecmaApplication& Application,
         const TecmaApplicationCreateInfo* ApplicationInfo 
     ) {
-        TecmaWindowModuleCreateInfo _windowInfo{};
+        if(
+            ApplicationInfo->_tecmaEngineApplicationType == TECMA_ENGINE_CLIENT_APPLICATION
+        )   {
+            TecmaWindowModuleCreateInfo _windowInfo{};
+            
+            TecmaPlatform::TecmaCreateWindow(
+                Application._windowModule,
+                &_windowInfo
+            );
 
-        _windowInfo._width = ApplicationInfo->_windowInitWidth;
-        _windowInfo._height = ApplicationInfo->_windowInitHeight;
-        _windowInfo._windowTitle = ApplicationInfo->_applicationName;
-        _windowInfo._fullscreen = TECMA_FALSE;
+        }
 
-        return TECMA_RESULT_SUCCESS;
+        TecmaPlatform::TecmaCreateWindow(
+            Application._windowModule,
+            NULL
+        );
 
     };
 
