@@ -4,7 +4,7 @@
 #if defined(__linux__)
     #include <X11/Xlib.h>
 #elif defined(__WIN32) || defined(__WIN64)
-    #include <windows.h>2
+    #include <windows.h>
 #endif
 
 #include "../core/tecma_core.h"
@@ -14,9 +14,17 @@ namespace TecmaPlatform {
         explicit TecmaWindowModule() noexcept;
 
         friend const TecmaResult TecmaCreateWindow(
-            TecmaWindowModule& Window,
+            TecmaWindowModule& _Window,
             const TecmaWindowModuleCreateInfo* WindowInfo
         );    
+
+        friend void TecmaDestroyWindow(
+            TecmaWindowModule& _Window
+        );
+
+        void TecmaCheckOutEvent(
+            volatile TecmaBool& __running
+        ) noexcept;
 
         private:
             #if defined(__linux__)
@@ -31,8 +39,12 @@ namespace TecmaPlatform {
     };
 
     const TecmaResult TecmaCreateWindow(
-        TecmaWindowModule& Window,
+        TecmaWindowModule& _Window,
         const TecmaWindowModuleCreateInfo* WindowInfo
+    );
+
+    void TecmaDestroyWindow(
+        TecmaWindowModule& _Window
     );
 
 };

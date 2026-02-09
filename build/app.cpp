@@ -2,20 +2,21 @@
 
 int main(
     const TecmaI32 TECMA_ARGUMENTS_COUNT,
-    const char* TECMA_ARGUMENTS[]
+    TecmaText TECMA_ARGUMENTS[]
 ) {
-    TecmaApplicationCreateInfo _applicationInfo{
+    TecmaEngineApplicationCreateInfo _applicationInfo{
         ._tecmaEngineArgumentsCount = TECMA_ARGUMENTS_COUNT,
-        ._tecmaEngineArguments = TECMA_ARGUMENTS,
-        ._tecmaEngineApplicationType =  TECMA_ENGINE_APPLICATION
+        ._tecmaEngineArguments = TECMA_ARGUMENTS
     }; 
     
-    TecmaEngine::TecmaApplication _application;
+    TecmaEngine::TecmaEngineApplication _application;
 
     InitTecmaApplication(
         _application,
         &_applicationInfo
     );
+
+    _application.TecmaRunEngine();
 
     return TECMA_RESULT_SUCCESS;
 

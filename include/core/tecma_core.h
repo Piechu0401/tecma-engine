@@ -32,20 +32,60 @@
 //   |    |\  ___/\  \___|  Y Y  \/ __ \_  |        \   |  \/ /_/  >  |   |  \  ___/ 
 //   |____| \___  >\___  >__|_|  (____  / /_______  /___|  /\___  /|__|___|  /\___  >
 //              \/     \/      \/     \/          \/     \//_____/         \/     \/ 
+//
+// welcome to the core, and source of all shitty architecture choices. Watch your step.
+
+#include <stdio.h>
 
 #define _TECMA_ALIGN(_size, _align) ((_size - _align - 1) & ~(_align - 1))
 
 namespace TecmaCore {
+    struct TecmaCoreModule {
+        explicit TecmaCoreModule() noexcept;
+
+        const TecmaResult TecmaInitCore();
+
+        TecmaU64 _screenWidth;
+        TecmaU64 _screenHeight;
+        TecmaI32 _depth;
+    
+        #if __TECMA_USING_OS == __LINUX
+            XVisualInfo _coreVisualInfo;
+            XSetWindowAttributes _coreAttributes;
+        #endif
+
+        private:
+            const TecmaU64 TecmaSetColors(
+                const TecmaU64& __r,
+                const TecmaU64& __g,
+                const TecmaU64& __b
+            ) noexcept;
+
+    };
+
     #if __TECMA_USING_OS == __LINUX
-        inline TecmaU32 TecmaCoreWindowGetHalfWidth(const Display* _display) noexcept { return (DisplayWidth(_display, DefaultScreen(_display)) >> 1); }
-        inline TecmaU32 TecmaCoreWindowGetHalfHeight(const Display* _display) noexcept { return (DisplayHeight(_display, DefaultScreen(_display)) >> 1); }
         inline TecmaU32 TecmaCoreWindowGetWindowClass() noexcept { return InputOutput; }
         inline TecmaU64 TecmaCoreWindowGetValuemask() noexcept { return CWBorderPixel | CWBackPixel | CWEventMask; }
-        inline Window TecmaCoreWindowGetParentWindow(const Display* _display) noexcept { return DefaultRootWindow(_display); }
-        inline TecmaI32 TecmaCoreWindowGetDepth(const Display* _display) { return DefaultDepth(_display, DefaultScreen(_display)); }
-        Visual* TecmaCoreWindowGetXlibVisual(const Display* _display) noexcept;
-        XSetWindowAttributes TecmaCoreWindowGetXlibWindowAttributes(const Display* _display) noexcept;
+        Visual* TecmaCoreWindowGetXlibVisual() noexcept;
+        XSetWindowAttributes* TecmaCoreWindowGetXlibWindowAttributes() noexcept;
     #endif
+
+    void* TecmaControlLoop( // this ptr func will control if everything in this dumpster clicks in (hopefully)
+        volatile TecmaBool* _engineRunning,
+        TecmaResult* _actionResult,
+        TecmaStatus* _engineStatus
+    );
+
+    inline TecmaText TecmaIdentifyTecmaStatus(
+        const TecmaStatus& _status
+    ) {
+        if( _status == TECMA_STATUS_INIT_ENGINE) return TECMA_STATUS_INIT_ENGINE_MESSAGE;
+        else if( _status == TECMA_STATUS_CREATING_NEW_THREAD) return TECMA_STATUS_CREATING_NEW_THREAD_MESSAGE;
+        else if( _status == TECMA_STATUS_INIT_WINDOW) return TECMA_STATUS_INIT_WINDOW_MESSAGE;
+        else if( _status == TECMA_STATUS_INIT_VULKAN) return TECMA_STATUS_INIT_VULKAN_MESSAGE;
+        else throw TecmaError(TECMA_RESULT_TE_UNKNOWN_STATUS_TYPE);
+
+    }
 
 }
 

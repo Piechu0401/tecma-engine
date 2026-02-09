@@ -17,6 +17,8 @@
     #include "../platform/tecma_os.h"
 #endif
 
+// to be honest whole project could end by just throwing this shit in main cpp and ending this misery for good
+
 struct TecmaError {
     explicit TecmaError(
         const TecmaResult& ResultCode

@@ -15,6 +15,7 @@
     #endif
     #if !defined(__TECMA_USING_XLIB)
         #include <X11/Xlib.h>
+        #include <X11/Xutil.h>
     #endif
     #include <unistd.h>
     #include <syscall.h>
@@ -48,24 +49,16 @@ inline void TecmaCreateProcess(
             __NR_fork
         );
 
-        if(
-            pID == 0
-        ) {
-            // syscall(
-            //     __NR_write,
-            //     STDOUT_FILENO,
-            //     "deez nuts fucker\n",
-            //     18
-            // );
-
+        if( pID == 0 ) {
             ProcessFunction(
                 ProcessFunctionArgs... 
-            );
-            
-            syscall(
-                __NR_exit,
-                0
-            );
+            );                               // syscall(
+                                             //     __NR_write,
+            syscall(                         //     STDOUT_FILENO,
+                __NR_exit,            //     "deez nuts fucker\n",
+                0                           //     18
+                                            // );          
+            );       
 
         }
 
