@@ -1,0 +1,73 @@
+#include "tecma_vk_instance.h"
+#include <vulkan/vulkan_core.h>
+
+namespace TecmaEngine {
+    TecmaVkInstance::TecmaVkInstance() noexcept {}
+    TecmaVkInstance::TecmaVkInstance(
+        const TecmaVkInstance& __other
+    ) noexcept {}
+    TecmaVkInstance::TecmaVkInstance(
+        const TecmaVkInstance&& __other
+    ) noexcept {}
+    TecmaVkInstance::~TecmaVkInstance() noexcept {}
+
+    void TecmaVkInstance::CreateVkInstance(
+        const char* __appName,
+        const unsigned int& __appVersion
+    ) {
+        VkApplicationInfo __appInfo = CreateApplicationInfo(
+            __appName,
+            __appVersion    
+        );
+
+        VkInstanceCreateInfo __info{
+            .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+            .pNext = nullptr,
+            .flags = 0,
+            .pApplicationInfo = &__appInfo,
+            .enabledLayerCount = (unsigned int)TecmaVkInstanceLayerNames.size(),
+            .ppEnabledLayerNames = TecmaVkInstanceLayerNames.data(),
+            .enabledExtensionCount = (unsigned int)TecmaVkInstanceExtensionNames.size(),
+            .ppEnabledExtensionNames = TecmaVkInstanceExtensionNames.data()
+        };
+
+        TecmaLogger(
+            (TecmaVkResult)vkCreateInstance(
+                &__info,
+                NULL,
+                &__inst
+            ),
+            VK_FUNCTION_FLAG_VK_CREATE_INSTANCE
+        );
+
+    }
+
+    void TecmaVkInstance::DestroyVkInstance() const noexcept {
+        vkDestroyInstance(
+            __inst,
+            NULL
+        );
+
+        TecmaLogger(
+            VK_SUCCESS,
+            VK_FUNCTION_FLAG_VK_DESTROY_INSTANCE
+        );
+
+    }
+
+    const VkApplicationInfo TecmaVkInstance::CreateApplicationInfo(
+        const char* __appName,
+        const unsigned int& __appVersion
+    ) const noexcept {
+        return VkApplicationInfo{
+            .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
+            .pNext = nullptr,
+            .pApplicationName = __appName,
+            .applicationVersion = __appVersion,
+            .pEngineName = __TECMA_ENGINE_NAME,
+            .engineVersion = __TECMA_ENGINE_VERSION
+        };
+
+    }
+
+};

@@ -1,34 +1,15 @@
-#include "../include/engine/tecma_engine.h"
+#include "../include/_Engine/tecma_engine.h"
 
 int main(
-    const TecmaI32 TECMA_ARGUMENTS_COUNT,
-    TecmaText TECMA_ARGUMENTS[]
+    const int __argc,
+    const char* __argv[]
 ) {
-    TecmaEngineApplicationCreateInfo _applicationInfo{
-        ._tecmaEngineArgumentsCount = TECMA_ARGUMENTS_COUNT,
-        ._tecmaEngineArguments = TECMA_ARGUMENTS
-    }; 
-    
-    TecmaEngine::TecmaEngineApplication _application;
+    TecmaEngine::TecmaApplication TecmaEngineApp;
 
-    InitTecmaApplication(
-        _application,
-        &_applicationInfo
-    );
+    TecmaEngineApp.InitEngineApplication();
 
-    _application.TecmaRunEngine();
-
-    return TECMA_RESULT_SUCCESS;
+    return 0;
 
 }
 
-// basic shitty command to compile
-// bear -- g++ -O0 build/app.cpp include/*/*.cpp -I*/include/*/*.h -I1.4.328.1/x86_64/include/vulkan -o app -lvulkan -lX11
-
-// here I will place somehow useful commented shit that maybe will get its use in the future
-
-    // TecmaCreateProcess<const TecmaResult, TecmaEngine::TecmaApplication&, const TecmaApplicationCreateInfo *>(
-    //     TecmaEngine::InitTecmaApplication,
-    //     _application,
-    //     &_applicationInfo    
-    // );
+// g++ -o0 build/app.cpp include/_*/*.cpp -Iinclude/*.h -o build/app -lvulkan
