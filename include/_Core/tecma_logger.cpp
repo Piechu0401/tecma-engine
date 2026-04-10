@@ -1,20 +1,46 @@
 #include "tecma_logger.h"
-#include <cstdlib>
-
-#define TECMA_MESSAGE_VALID_STR "Message -> "
-#define TECMA_MESSAGE_INFO_STR  "Info    -> "
-#define TECMA_MESSAGE_ERROR_STR "\tError -> "
+#include "tecma_enum.h"
 
 namespace TecmaEngine {
-    TecmaLogger::TecmaLogger() noexcept {}
-    TecmaLogger::~TecmaLogger() noexcept {}
+    TecmaLogger_t::TecmaLogger_t() noexcept {}
+    TecmaLogger_t::~TecmaLogger_t() noexcept {}
 
-    void TecmaLogger::operator()( 
+    void TecmaLogger_t::operator()(
+        const TecmaVkEnumType& __enType,
+        const char* __name
+    ) const {
+        printf(
+            "%s   -> %-16s : %s\n",
+            TECMA_MESSAGE_USING,
+            GetTecmaVkEnumTypeName(
+                __enType
+            ),
+            __name
+        );
+
+    }
+
+    void TecmaLogger_t::operator()(
+        const TecmaVkObjectType& __objType,
+        const char* __attr
+    ) const noexcept {
+        printf(
+            "%s   -> %-16s : %s\n",
+            TECMA_MESSAGE_USING,
+            GetTecmaVkObjectTypeName(
+                __objType
+            ),
+            __attr
+        );
+
+    }
+
+    void TecmaLogger_t::operator()( 
         const TecmaErrorFlag& __flag 
     ) const {
         printf(
-            "%s%s",
-            TECMA_MESSAGE_ERROR_STR,
+            "%s   -> %-43s",
+            TECMA_MESSAGE_ERROR,
             GetTecmaErrorFlagMessage(
                 __flag
             )
@@ -25,13 +51,13 @@ namespace TecmaEngine {
     }
 
     #if defined(__TECMA_INFO)
-        void TecmaLogger::operator()( 
+        void TecmaLogger_t::operator()( 
             const TecmaInfoFlag& __flag,
             const std::vector<const char*>& __available 
         ) const {
             printf(
-                "%s%s",
-                TECMA_MESSAGE_INFO_STR,
+                "%-9s->%-43s",
+                TECMA_MESSAGE_INFO,
                 GetTecmaInfoFlagMessage(
                     __flag
                 )
@@ -43,13 +69,13 @@ namespace TecmaEngine {
         }
     #endif
 
-    void TecmaLogger::operator()( 
+    void TecmaLogger_t::operator()( 
         const TecmaErrorFlag& __flag,
         const std::vector<const char*>& __missing 
     ) const {
         printf(
-            "%s%s",
-            TECMA_MESSAGE_ERROR_STR,
+            "%-9s->%-43s",
+            TECMA_MESSAGE_ERROR,
             GetTecmaErrorFlagMessage(
                 __flag
             )
@@ -62,16 +88,30 @@ namespace TecmaEngine {
 
     }
 
-    void TecmaLogger::operator()( 
+    void TecmaLogger_t::operator()( 
         const TecmaVkResult& __result,
         const TecmaVkFunctionFlag& __funcType 
-    ) const {        
-        printf(
-            "%s%-40s : { %s }\n",
-            TECMA_MESSAGE_VALID_STR, 
-            GetTecmaVkFunctionFlagName( __funcType ),
-            GetTecmaVkResultName( __result )
-        );
+    ) const {
+        if( !__result ) {
+            printf(
+                "%s -> %-43s : { %s }\n",
+                TECMA_MESSAGE_VALID, 
+                GetTecmaVkFunctionFlagName( __funcType ),
+                GetTecmaVkResultName( __result )
+            );
+
+        }
+        else {
+            printf(
+                "%s   -> %-43s : { %s }\n",
+                TECMA_MESSAGE_ERROR, 
+                GetTecmaVkFunctionFlagName( __funcType ),
+                GetTecmaVkResultName( __result )
+            );
+
+            std::abort();
+
+        }
         
     }
 

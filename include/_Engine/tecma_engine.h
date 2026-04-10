@@ -6,16 +6,25 @@
 #endif
 
 namespace TecmaEngine {
-    typedef struct TecmaApplication {
-        explicit TecmaApplication() noexcept;
-        ~TecmaApplication() noexcept;
+    struct TecmaApplication_t {
+        explicit TecmaApplication_t() noexcept;
+        
+        explicit TecmaApplication_t(
+            const TecmaApplication_t& __other
+        ) noexcept;
+
+        explicit TecmaApplication_t(
+            const TecmaApplication_t&& __other
+        ) noexcept;
+        
+        ~TecmaApplication_t() noexcept;
 
         void InitEngineApplication();
 
         private:
-            TecmaVkRenderer __renderer;
+            TecmaVkRenderer_t __renderer;
 
-    } TecmaApplication_t;
+    };
 
 };
 

@@ -2,24 +2,36 @@
 #define __TECMA_VK_SURFACE_H
 
 #include "tecma_vk_core.h"
+#include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
-    typedef struct TecmaVkSurface {
-        explicit TecmaVkSurface() noexcept;
-        explicit TecmaVkSurface(
-            const TecmaVkSurface& __other
+    struct TecmaVkSurface_t {
+        explicit TecmaVkSurface_t() noexcept;
+        explicit TecmaVkSurface_t(
+            const TecmaVkSurface_t& __other
         ) noexcept;
-        explicit TecmaVkSurface(
-            const TecmaVkSurface&& __other
+        explicit TecmaVkSurface_t(
+            const TecmaVkSurface_t&& __other
         ) noexcept;
-        ~TecmaVkSurface() noexcept;
+        ~TecmaVkSurface_t() noexcept;
+
+        inline const VkExtent3D GetVkExtent3D() const noexcept { 
+            return VkExtent3D{ 
+                .width = __surfCapa.currentExtent.width,
+                .height = __surfCapa.currentExtent.height,
+                .depth = 1
+            }; 
+        
+        }
+        inline const VkExtent2D& GetVkExtent2D() const noexcept { return __surfCapa.currentExtent; }
 
         #if defined(__TECMA_LINUX)
             #if defined(__TECMA_XLIB)
                 void CreateVkSurface(
                     const VkInstance& __inst,
-                    Display* __dsp,
-                    Window __wnd
+                    const VkPhysicalDevice& __physDev,
+                    Display** __dsp,
+                    Window& __wnd
                 );
             #endif
         #endif
@@ -29,8 +41,29 @@ namespace TecmaEngine {
         ) const noexcept;
 
         VkSurfaceKHR __surf;
+        VkSurfaceCapabilitiesKHR __surfCapa;
+        VkSurfaceFormatKHR __surfColorForm;
+        VkFormat __depthForm;
+        VkPresentModeKHR __presMode;
+ 
+        private:
+            void GetCapabilities(
+                const VkPhysicalDevice& __physDev
+            );
 
-    } TecmaVkSurface_t;
+            void PickVkSurfaceFormat(
+                const VkPhysicalDevice& __physDev
+            );
+
+            void PickVkPresentMode(
+                const VkPhysicalDevice& __physDev
+            );
+
+            void PickSupportedDepthVkFormat(
+                const VkPhysicalDevice& __physDev
+            );
+
+    };
 
 };
 

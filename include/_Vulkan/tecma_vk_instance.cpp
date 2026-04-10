@@ -2,20 +2,20 @@
 #include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
-    TecmaVkInstance::TecmaVkInstance() noexcept {}
-    TecmaVkInstance::TecmaVkInstance(
-        const TecmaVkInstance& __other
+    TecmaVkInstance_t::TecmaVkInstance_t() noexcept {}
+    TecmaVkInstance_t::TecmaVkInstance_t(
+        const TecmaVkInstance_t& __other
     ) noexcept {}
-    TecmaVkInstance::TecmaVkInstance(
-        const TecmaVkInstance&& __other
+    TecmaVkInstance_t::TecmaVkInstance_t(
+        const TecmaVkInstance_t&& __other
     ) noexcept {}
-    TecmaVkInstance::~TecmaVkInstance() noexcept {}
+    TecmaVkInstance_t::~TecmaVkInstance_t() noexcept {}
 
-    void TecmaVkInstance::CreateVkInstance(
+    void TecmaVkInstance_t::CreateVkInstance(
         const char* __appName,
         const unsigned int& __appVersion
     ) {
-        VkApplicationInfo __appInfo = CreateApplicationInfo(
+        __appInfo = CreateApplicationInfo(
             __appName,
             __appVersion    
         );
@@ -25,10 +25,11 @@ namespace TecmaEngine {
             .pNext = nullptr,
             .flags = 0,
             .pApplicationInfo = &__appInfo,
-            .enabledLayerCount = (unsigned int)TecmaVkInstanceLayerNames.size(),
+            .enabledLayerCount = (unsigned int)(TecmaVkInstanceLayerNames.size()),
             .ppEnabledLayerNames = TecmaVkInstanceLayerNames.data(),
-            .enabledExtensionCount = (unsigned int)TecmaVkInstanceExtensionNames.size(),
+            .enabledExtensionCount = (unsigned int)(TecmaVkInstanceExtensionNames.size()),
             .ppEnabledExtensionNames = TecmaVkInstanceExtensionNames.data()
+        
         };
 
         TecmaLogger(
@@ -42,7 +43,7 @@ namespace TecmaEngine {
 
     }
 
-    void TecmaVkInstance::DestroyVkInstance() const noexcept {
+    void TecmaVkInstance_t::DestroyVkInstance() const noexcept {
         vkDestroyInstance(
             __inst,
             NULL
@@ -55,7 +56,7 @@ namespace TecmaEngine {
 
     }
 
-    const VkApplicationInfo TecmaVkInstance::CreateApplicationInfo(
+    const VkApplicationInfo TecmaVkInstance_t::CreateApplicationInfo(
         const char* __appName,
         const unsigned int& __appVersion
     ) const noexcept {

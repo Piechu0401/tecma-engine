@@ -1,16 +1,24 @@
 #include "tecma_vk_renderer.h"
+#include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
-    TecmaVkRenderer::TecmaVkRenderer() noexcept {}
-    TecmaVkRenderer::TecmaVkRenderer(
-        const TecmaVkRenderer& __other
+    TecmaVkRenderer_t::TecmaVkRenderer_t() noexcept {}
+    TecmaVkRenderer_t::TecmaVkRenderer_t(
+        const TecmaVkRenderer_t& __other
     ) noexcept {}
-    TecmaVkRenderer::TecmaVkRenderer(
-        const TecmaVkRenderer&& __other
+    TecmaVkRenderer_t::TecmaVkRenderer_t(
+        const TecmaVkRenderer_t&& __other
     ) noexcept {}
-    TecmaVkRenderer::~TecmaVkRenderer() noexcept {
-        for( auto& __dev : __tecmaDevs )
-            __dev.DestroyVkDevice();
+    TecmaVkRenderer_t::~TecmaVkRenderer_t() noexcept {
+        __tecmaDepthResource.DestroyImages(
+            __tecmaDev.__dev
+        );
+        
+        __tecmaSwchain.DestroyVkSwapchain(
+            __tecmaDev.__dev
+        );
+        
+        __tecmaDev.DestroyVkDevice();
 
         __tecmaSurf.DestroyVkSurface( 
             __tecmaInst.__inst
@@ -24,52 +32,14 @@ namespace TecmaEngine {
 
         #if defined(__TECMA_XLIB)
             XUnmapWindow( __dsp, __wnd );
-            XCloseDisplay( __dsp );
+            // XCloseDisplay( __dsp );
         #endif
 
     }
 
-    void TecmaVkRenderer::GetAvailableDevices() {
-        unsigned int __count{0};
-
-        TecmaLogger(
-            (TecmaVkResult)vkEnumeratePhysicalDevices(
-                __tecmaInst.__inst,
-                &__count,
-                NULL
-            ),
-            VK_FUNCTION_FLAG_VK_ENUMERATE_PHYSICAL_DEVICES
-        );
-
-        VkPhysicalDevice __physDevs[__count];
-
-        TecmaLogger(
-            (TecmaVkResult)vkEnumeratePhysicalDevices(
-                __tecmaInst.__inst,
-                &__count,
-                __physDevs
-            ),
-            VK_FUNCTION_FLAG_VK_ENUMERATE_PHYSICAL_DEVICES
-        );
-
-        __tecmaDevs.resize( __count );
-
-        for( int __i{0}; __i < __count; ++__i ) {
-            TecmaVkDeviceLayersSupported( __physDevs[__i] );
-            TecmaVkDeviceExtensionsSupported( __physDevs[__i] );
-
-            __tecmaDevs[__i].CreateVkDevice(
-                __tecmaInst.__inst,
-                __physDevs[__i]
-            );
-
-        }
-
-    }
-
-    void TecmaVkRenderer::CreateEngineWindow() {
+    void TecmaVkRenderer_t::CreateEngineWindow() {
         #if defined(__TECMA_XLIB)
-            __dsp = XOpenDisplay(NULL);
+            __dsp = XOpenDisplay( NULL );
             if( !__dsp ) TecmaLogger(TECMA_ERROR_XLIB_DISPLAY_FAILED);
             
             __wnd = XCreateSimpleWindow(
@@ -92,7 +62,7 @@ namespace TecmaEngine {
 
     }
 
-    void TecmaVkRenderer::InitRenderer() {
+    void TecmaVkRenderer_t::InitRenderer() {
         TecmaVkInstanceLayersSupported();
         TecmaVkInstanceExtensionsSupported();
 
@@ -107,15 +77,37 @@ namespace TecmaEngine {
             __tecmaInst.__inst
         );
 
+        __tecmaDev.CreateVkDevice(
+            __tecmaInst.__inst
+        );
+
         #if defined(__TECMA_XLIB)
             __tecmaSurf.CreateVkSurface(
                 __tecmaInst.__inst,
-                __dsp,
+                __tecmaDev.__physDev,
+                &__dsp,
                 __wnd
             );
         #endif
 
-        GetAvailableDevices();
+        __tecmaSwchain.CreateVkSwapchain(
+            __tecmaDev.__dev, 
+            __tecmaSurf.__surf, 
+            __tecmaSurf.__surfColorForm,
+            __tecmaSurf.__surfCapa, 
+            __tecmaSurf.__presMode,
+            __tecmaDev.GetFamilyIndices()
+        );
+
+        __tecmaDepthResource.CreateImages(
+            __tecmaDev.__dev,
+            __tecmaSurf.__surfCapa.minImageCount + 1,
+            __tecmaDev.FindMemoryIndex( VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT ),
+            __tecmaSurf.__depthForm,
+            VK_IMAGE_ASPECT_DEPTH_BIT,
+            __tecmaSurf.GetVkExtent3D(),
+            __tecmaDev.GetFamilyIndices()
+        );
 
     }
 

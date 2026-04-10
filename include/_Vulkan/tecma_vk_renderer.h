@@ -19,34 +19,44 @@
     #include "tecma_vk_device.h"
 #endif
 
+#ifndef __TECMA_VK_SWAPCHAIN_H
+    #include "tecma_vk_swapchain.h"
+#endif
+
+#ifndef __TECMA_VK_IMAGE_H
+    #include "tecma_vk_image.h"
+#endif
+
 namespace TecmaEngine {
-    typedef struct TecmaVkRenderer {
-        explicit TecmaVkRenderer() noexcept;
-        explicit TecmaVkRenderer(
-            const TecmaVkRenderer& __other
+    struct TecmaVkRenderer_t {
+        explicit TecmaVkRenderer_t() noexcept;
+        explicit TecmaVkRenderer_t(
+            const TecmaVkRenderer_t& __other
         ) noexcept;
-        explicit TecmaVkRenderer(
-            const TecmaVkRenderer&& __other
+        explicit TecmaVkRenderer_t(
+            const TecmaVkRenderer_t&& __other
         ) noexcept;
-        ~TecmaVkRenderer() noexcept;
+        ~TecmaVkRenderer_t() noexcept;
 
         void InitRenderer();
 
         private:
             #if defined(__TECMA_XLIB)
-                Display* __dsp;
-                Window __wnd;
+                Display* __dsp = nullptr;
+                Window __wnd = 0;
             #endif
 
             TecmaVkInstance_t __tecmaInst;
             TecmaVkDebugUtils_t __tecmaDebug;
             TecmaVkSurface_t __tecmaSurf;
-            std::vector<TecmaVkDevice_t> __tecmaDevs;
+            TecmaVkDevice_t __tecmaDev;
+            TecmaVkSwapchain_t __tecmaSwchain;
+            TecmaVkImage_t __tecmaDepthResource;
 
             void CreateEngineWindow();
             void GetAvailableDevices();
 
-    } TecmaVkRenderer_t;
+    };
 
 };
 

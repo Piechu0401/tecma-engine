@@ -1,6 +1,7 @@
 #ifndef __TECMA_CORE_H
 #define __TECMA_CORE_H
 
+#include <algorithm>
 #include <array>
 #include <vector>
 #include <string.h>

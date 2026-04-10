@@ -18,10 +18,12 @@ endif
 all: clean $(__DST)
 
 $(__DST): $(__OBJ)
-	$(__COMP) -g -fsanitize=address -fno-omit-frame-pointer $(__OBJ) -Iinclude -o $@ $(__FLAGS)
+	$(__COMP) $(__OBJ) -Iinclude -o $@ $(__FLAGS)
+
+# -fsanitize=address -g
 
 %.o: %.cpp
-	$(__COMP) -g -fsanitize=address -fno-omit-frame-pointer -c $< -Iinclude -o $@ $(__CXXFLAGS)
+	$(__COMP) -c $< -Iinclude -o $@ $(__CXXFLAGS)
 
 clean: 
 	@find . -path "./include/_*/*.o" -type f -delete

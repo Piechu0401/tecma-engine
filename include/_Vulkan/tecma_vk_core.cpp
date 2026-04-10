@@ -1,4 +1,5 @@
 #include "tecma_vk_core.h"
+#include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
     void TecmaVkInstanceLayersSupported() {
@@ -13,12 +14,12 @@ namespace TecmaEngine {
             VK_FUNCTION_FLAG_VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES
         );
 
-        VkLayerProperties __props[__count];
+        std::vector<VkLayerProperties> __props(__count);
 
         TecmaLogger(
             (TecmaVkResult)vkEnumerateInstanceLayerProperties(
                 &__count,
-                __props
+                __props.data()
             ),
             VK_FUNCTION_FLAG_VK_ENUMERATE_INSTANCE_LAYER_PROPERTIES
         );
@@ -81,13 +82,13 @@ namespace TecmaEngine {
             VK_FUNCTION_FLAG_VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES
         );
 
-        VkExtensionProperties __props[__count];
+        std::vector<VkExtensionProperties> __props(__count);
 
         TecmaLogger(
             (TecmaVkResult)vkEnumerateInstanceExtensionProperties(
                 NULL,
                 &__count,
-                __props
+                __props.data()
             ),
             VK_FUNCTION_FLAG_VK_ENUMERATE_INSTANCE_EXTENSION_PROPERTIES
         );
@@ -155,13 +156,13 @@ namespace TecmaEngine {
             VK_FUNCTION_FLAG_VK_ENUMERATE_DEVICE_LAYER_PROPERTIES
         );
 
-        VkLayerProperties __props[__count];
+        std::vector<VkLayerProperties> __props(__count);
 
         TecmaLogger(
             (TecmaVkResult)vkEnumerateDeviceLayerProperties(
                 __physDev,
                 &__count,
-                __props
+                __props.data()
             ),
             VK_FUNCTION_FLAG_VK_ENUMERATE_DEVICE_LAYER_PROPERTIES
         );
@@ -228,14 +229,14 @@ namespace TecmaEngine {
             VK_FUNCTION_FLAG_VK_ENUMERATE_DEVICE_EXTENSION_PROPERTIES
         );
 
-        VkExtensionProperties __props[__count];
+        std::vector<VkExtensionProperties> __props(__count);
 
         TecmaLogger(
             (TecmaVkResult)vkEnumerateDeviceExtensionProperties(
                 __physDev,
                 NULL,
                 &__count,
-                __props
+                __props.data()
             ),
             VK_FUNCTION_FLAG_VK_ENUMERATE_DEVICE_EXTENSION_PROPERTIES
         );
@@ -285,6 +286,27 @@ namespace TecmaEngine {
             );
 
         }
+
+    }
+
+    const TecmaBool TecmaVkFormatSupported(
+        const VkPhysicalDevice& __physDev,
+        const VkFormat& __form,
+        const VkFormatFeatureFlags& __optTilFeat,
+        const VkFormatFeatureFlags& __linTilFeat,
+        const VkFormatFeatureFlags& __buffFeat
+    ) noexcept {
+        VkFormatProperties __props{};
+        vkGetPhysicalDeviceFormatProperties(
+            __physDev,
+            __form,
+            &__props
+        );
+
+        return 
+            (__optTilFeat ? (__props.optimalTilingFeatures & __optTilFeat) : 1 &&
+            __linTilFeat ? (__props.linearTilingFeatures & __linTilFeat) : 1&&
+            __buffFeat ? (__props.bufferFeatures & __buffFeat) : 1);
 
     }
 

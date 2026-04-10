@@ -5,36 +5,47 @@
 #include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
-    typedef struct TecmaVkDevice {
-        explicit TecmaVkDevice() noexcept;
-        explicit TecmaVkDevice(
-            const TecmaVkDevice& __other
+    struct TecmaVkDevice_t {
+        explicit TecmaVkDevice_t() noexcept;
+        explicit TecmaVkDevice_t(
+            const TecmaVkDevice_t& __other
         ) noexcept;
-        explicit TecmaVkDevice(
-            const TecmaVkDevice&& __other
+        explicit TecmaVkDevice_t(
+            const TecmaVkDevice_t&& __other
         ) noexcept;
-        ~TecmaVkDevice() noexcept;
+        ~TecmaVkDevice_t() noexcept;
 
-        VkDevice __dev;
-        VkPhysicalDevice __physDev;
+        const unsigned int FindMemoryIndex(
+            const VkMemoryPropertyFlagBits& __memProp
+        ) const noexcept;
+        const std::vector<unsigned int> GetFamilyIndices() const noexcept;
+
+        VkDevice __dev = VK_NULL_HANDLE;
+        VkPhysicalDevice __physDev = VK_NULL_HANDLE;
         VkPhysicalDeviceFeatures __physDevFeat;
+        VkPhysicalDeviceProperties __physDevProps;
+        VkPhysicalDeviceMemoryProperties __physDevMemProps;
         std::vector<VkDeviceQueueCreateInfo> __queueInfos;
         std::vector<std::vector<float>> __queuePriorities;
-        
+        float __prior = 1.0f;
+
         void CreateVkDevice(
-            const VkInstance& __inst,
-            const VkPhysicalDevice& __physicalDev
+            const VkInstance& __inst
         );
 
         void DestroyVkDevice() noexcept;
 
         private:
 
+        void PickBestAvailableDevice(
+            const VkInstance&
+        );
+
         void InitVkDeviceQueueCreateInfos(
             const VkInstance& __inst
         );
 
-    } TecmaVkDevice_t;
+    };
 
 };
 

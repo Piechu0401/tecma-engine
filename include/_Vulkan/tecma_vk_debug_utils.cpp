@@ -2,24 +2,41 @@
 #include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
-    TecmaVkDebugUtils::TecmaVkDebugUtils() noexcept {}
+    TecmaVkDebugUtils_t::TecmaVkDebugUtils_t() noexcept {}
     
-    TecmaVkDebugUtils::TecmaVkDebugUtils( 
-        TecmaVkDebugUtils& __other 
+    TecmaVkDebugUtils_t::TecmaVkDebugUtils_t( 
+        TecmaVkDebugUtils_t& __other 
     ) noexcept {}
     
-    TecmaVkDebugUtils::TecmaVkDebugUtils( 
-        TecmaVkDebugUtils&& __other 
+    TecmaVkDebugUtils_t::TecmaVkDebugUtils_t( 
+        TecmaVkDebugUtils_t&& __other 
     ) noexcept {}
 
-    VkBool32 VKAPI_PTR TecmaVkDebugUtils::TecmaDebugCallback(
+    VkBool32 VKAPI_PTR TecmaVkDebugUtils_t::TecmaDebugCallback(
         VkDebugUtilsMessageSeverityFlagBitsEXT __messSev,
         VkDebugUtilsMessageTypeFlagsEXT __messTypes,
         const VkDebugUtilsMessengerCallbackDataEXT* __callbackData,
         void* __userData
-    ) { return __TECMA_TRUE; }
+    ) { 
+        if( __messSev & VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT ) {
+
+        }
+        else if( __messSev & VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT ) {
+
+        }
+        else if( __messSev & VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT ) {
+
+        }
+        else if( __messSev & VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT ) {
+            printf( "%s\n", __callbackData->pMessage);
+
+        }
+
+        return __TECMA_TRUE; 
     
-    void TecmaVkDebugUtils::CreateVkDebugUtilsMessenger(
+    }
+    
+    void TecmaVkDebugUtils_t::CreateVkDebugUtilsMessenger(
         const VkInstance& __inst
     ) {
         PFN_vkCreateDebugUtilsMessengerEXT CreateDebugUtilsMessenger = 
@@ -57,7 +74,7 @@ namespace TecmaEngine {
 
     }
 
-    void TecmaVkDebugUtils::DestroyVkDebugUtilsMessenger(
+    void TecmaVkDebugUtils_t::DestroyVkDebugUtilsMessenger(
         const VkInstance& __inst
     ) const noexcept {
         PFN_vkDestroyDebugUtilsMessengerEXT DestroyDebugUtilsMessenger = 

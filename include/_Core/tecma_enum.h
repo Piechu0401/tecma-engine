@@ -22,6 +22,11 @@ namespace TecmaEngine {
             TECMA_ERROR_XLIB_DISPLAY_FAILED = 6,
             TECMA_ERROR_XLIB_WINDOW_FAILED = 7,
         #endif
+        TECMA_ERROR_VK_FORMAT_DEPTH_NOT_SUITABLE = 8,
+        TECMA_ERROR_VK_FORMAT_COLOR_NOT_SUITABLE = 9,
+        TECMA_ERROR_VK_PRESENT_MODE_NOT_FOUND = 10,
+        TECMA_ERROR_VK_MEMORY_PROPERTY_NOT_FOUND = 11,
+    
     };
 
     enum TecmaVkResult {
@@ -75,6 +80,13 @@ namespace TecmaEngine {
         VK_INCOMPATIBLE_SHADER_BINARY_EXT = 1000482000,
         VK_PIPELINE_BINARY_MISSING_KHR = 1000483000,
         VK_ERROR_NOT_ENOUGH_SPACE_KHR = -1000483000,
+
+    };
+
+    enum TecmaVkEnumType {
+        VK_ENUM_TYPE_VK_PRESENT_MODE = 0,
+        VK_ENUM_TYPE_VK_FORMAT = 1,
+        VK_ENUM_TYPE_VK_COLOR_SPACE = 2,
 
     };
 
@@ -146,6 +158,7 @@ namespace TecmaEngine {
     };
 
     enum TecmaVkFunctionFlag {
+        VK_FUNCTION_FLAG_VK_DESTROY_IMAGE_VIEW = -6,
         VK_FUNCTION_FLAG_VK_DESTROY_SWAPCHAIN_KHR = -5,
         VK_FUNCTION_FLAG_VK_DESTROY_DEVICE = -4,
         VK_FUNCTION_FLAG_VK_DESTROY_SURFACE_KHR = -3,
@@ -161,6 +174,12 @@ namespace TecmaEngine {
         VK_FUNCTION_FLAG_VK_ENUMERATE_DEVICE_LAYER_PROPERTIES = 7,
         VK_FUNCTION_FLAG_VK_ENUMERATE_DEVICE_EXTENSION_PROPERTIES = 8,
         VK_FUNCTION_FLAG_VK_ENUMERATE_PHYSICAL_DEVICES = 9,
+        VK_FUNCTION_FLAG_VK_GET_PHYSICAL_DEVICE_SURFACE_CAPABILITIES_KHR = 10,
+        VK_FUNCTION_FLAG_VK_GET_PHYSICAL_DEVICE_SURFACE_FORMATS_KHR = 11,
+        VK_FUNCTION_FLAG_VK_GET_PHYSICAL_DEVICE_SURFACE_PRESENT_MODES_KHR = 12,
+        VK_FUNCTION_FLAG_VK_GET_SWAPCHAIN_IMAGES_KHR = 13,
+        VK_FUNCTION_FLAG_VK_CREATE_IMAGE_VIEW = 14,
+        VK_FUNCTION_FLAG_VK_CREATE_IMAGE = 15,
 
     };
 
@@ -190,9 +209,13 @@ namespace TecmaEngine {
             #if defined( __TECMA_XLIB )
                 case TECMA_ERROR_XLIB_DISPLAY_NULL: return "Given value of Display is set to NULL!\n";
                 case TECMA_ERROR_XLIB_WINDOW_ZERO: return "Given value of Window is set to zero!\n";
-                case TECMA_ERROR_XLIB_DISPLAY_FAILED: return "XOpenDisplay() resulted int Display = NULL!\n";
-                case TECMA_ERROR_XLIB_WINDOW_FAILED: return "XCreateWindow() resulted int Window = 0!\n";
+                case TECMA_ERROR_XLIB_DISPLAY_FAILED: return "XOpenDisplay() resulted in Display = NULL!\n";
+                case TECMA_ERROR_XLIB_WINDOW_FAILED: return "XCreateWindow() resulted in Window = 0!\n";
             #endif
+            case TECMA_ERROR_VK_FORMAT_DEPTH_NOT_SUITABLE: return "Tecma Engine could not find any suitable depth VkFormat!\n";
+            case TECMA_ERROR_VK_FORMAT_COLOR_NOT_SUITABLE: return "Tecma Engine could not find any suitable color VkFormat!\n";
+            case TECMA_ERROR_VK_PRESENT_MODE_NOT_FOUND: return "Tecma Engine could not find any VkPresentModeKHR!\n";
+            case TECMA_ERROR_VK_MEMORY_PROPERTY_NOT_FOUND: return "Tecma Engine could not find any suitable memory index!\n";
             default: return "Error unknown";
 
         }
@@ -203,6 +226,7 @@ namespace TecmaEngine {
         const TecmaVkFunctionFlag& __funcType
     ) noexcept {
         switch( __funcType ) {
+            case VK_FUNCTION_FLAG_VK_DESTROY_IMAGE_VIEW: return "vkDestroyVkImageView()";
             case VK_FUNCTION_FLAG_VK_DESTROY_SWAPCHAIN_KHR: return "vkDestroySwapchainKHR()";
             case VK_FUNCTION_FLAG_VK_DESTROY_DEVICE: return "vkDestroyDevice()";
             case VK_FUNCTION_FLAG_VK_DESTROY_SURFACE_KHR: return "vkDestroySurfaceKHR()";
@@ -218,7 +242,26 @@ namespace TecmaEngine {
             case VK_FUNCTION_FLAG_VK_ENUMERATE_DEVICE_LAYER_PROPERTIES: return "vkEnumerateDeviceLayerProperties()";
             case VK_FUNCTION_FLAG_VK_ENUMERATE_DEVICE_EXTENSION_PROPERTIES: return "vkEnumerateDeviceExtensionProperties()";
             case VK_FUNCTION_FLAG_VK_ENUMERATE_PHYSICAL_DEVICES: return "vkEnumeratePhysicalDevices()";
+            case VK_FUNCTION_FLAG_VK_GET_PHYSICAL_DEVICE_SURFACE_CAPABILITIES_KHR: return "vkGetPhysicalDeviceSurfaceCapabilitiesKHR()";
+            case VK_FUNCTION_FLAG_VK_GET_PHYSICAL_DEVICE_SURFACE_FORMATS_KHR: return "vkGetPhysicalDeviceSurfaceFormatsKHR()";
+            case VK_FUNCTION_FLAG_VK_GET_PHYSICAL_DEVICE_SURFACE_PRESENT_MODES_KHR: return "vkGetPhysicalDeviceSurfacePresentModesKHR()";
+            case VK_FUNCTION_FLAG_VK_GET_SWAPCHAIN_IMAGES_KHR: return "vkGetSwapchainImagesKHR()";
+            case VK_FUNCTION_FLAG_VK_CREATE_IMAGE_VIEW: return "vkCreateImageView()";
+            case VK_FUNCTION_FLAG_VK_CREATE_IMAGE: return "vkCreateImage()";
             default: return "VK_FUNCTION_FLAG_UNKNOWN";
+
+        }
+
+    }
+
+    inline static const char* GetTecmaVkEnumTypeName(
+        const TecmaVkEnumType& __enType
+    ) noexcept {
+        switch( __enType ) {
+            case VK_ENUM_TYPE_VK_PRESENT_MODE: return "VkPresentModeKHR";
+            case VK_ENUM_TYPE_VK_FORMAT: return "VkFormat";
+            case VK_ENUM_TYPE_VK_COLOR_SPACE: return "VkColorSpaceKHR";
+            default: return "VK_ENUM_UNKNOWN";
 
         }
 

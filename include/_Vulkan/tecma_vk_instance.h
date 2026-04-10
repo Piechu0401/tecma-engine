@@ -4,17 +4,18 @@
 #include "tecma_vk_core.h"
 
 namespace TecmaEngine {
-    typedef struct TecmaVkInstance {
-        explicit TecmaVkInstance() noexcept;
-        explicit TecmaVkInstance(
-            const TecmaVkInstance& __other
+    struct TecmaVkInstance_t {
+        explicit TecmaVkInstance_t() noexcept;
+        explicit TecmaVkInstance_t(
+            const TecmaVkInstance_t& __other
         ) noexcept;
-        explicit TecmaVkInstance(
-            const TecmaVkInstance&& __other
+        explicit TecmaVkInstance_t(
+            const TecmaVkInstance_t&& __other
         ) noexcept;
-        ~TecmaVkInstance() noexcept;
+        ~TecmaVkInstance_t() noexcept;
 
         VkInstance __inst;
+        VkApplicationInfo __appInfo;
 
         void CreateVkInstance(
             const char* __appName,
@@ -30,7 +31,7 @@ namespace TecmaEngine {
             const unsigned int& __appVersion
         ) const noexcept;
 
-    } TecmaVkInstance_t;
+    };
 
 }
 

@@ -4,10 +4,10 @@ int main(
     const int __argc,
     const char* __argv[]
 ) {
-    TecmaEngine::TecmaApplication TecmaEngineApp;
-
+    TecmaEngine::TecmaApplication_t TecmaEngineApp;
+    
     TecmaEngineApp.InitEngineApplication();
-
+    
     return 0;
 
 }

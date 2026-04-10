@@ -2,16 +2,15 @@
 #define __TECMA_VK_DEBUG_UTILS_H
 
 #include "tecma_vk_core.h"
-#include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
-    typedef struct TecmaVkDebugUtils {
-        explicit TecmaVkDebugUtils() noexcept;
-        explicit TecmaVkDebugUtils( 
-            TecmaVkDebugUtils& __other 
+    struct TecmaVkDebugUtils_t {
+        explicit TecmaVkDebugUtils_t() noexcept;
+        explicit TecmaVkDebugUtils_t( 
+            TecmaVkDebugUtils_t& __other 
         ) noexcept;
-        explicit TecmaVkDebugUtils( 
-            TecmaVkDebugUtils&& __other 
+        explicit TecmaVkDebugUtils_t( 
+            TecmaVkDebugUtils_t&& __other 
         ) noexcept;
 
         void CreateVkDebugUtilsMessenger(
@@ -31,7 +30,7 @@ namespace TecmaEngine {
 
         VkDebugUtilsMessengerEXT __debugUtils;
 
-    } TecmaVkDebugUtils_t;
+    };
 
 };
 
