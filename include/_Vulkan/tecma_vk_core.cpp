@@ -1,5 +1,4 @@
 #include "tecma_vk_core.h"
-#include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
     void TecmaVkInstanceLayersSupported() {

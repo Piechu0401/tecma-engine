@@ -22,6 +22,14 @@ namespace TecmaEngine {
             const VkExtent3D& __ext,
             const std::vector<unsigned int> __indices
         );
+
+        void CreateImages(
+            const VkDevice& __dev,
+            const std::vector<VkImage> __fromImgs,
+            const unsigned int& __memIndex,
+            const VkFormat& __form,
+            const VkImageAspectFlags& __flags
+        );
         void DestroyImages(
             const VkDevice& __dev
         );

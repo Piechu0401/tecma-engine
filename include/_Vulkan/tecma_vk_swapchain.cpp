@@ -1,16 +1,58 @@
 #include "tecma_vk_swapchain.h"
-#include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
     TecmaVkSwapchain_t::TecmaVkSwapchain_t() noexcept {}
+    
     TecmaVkSwapchain_t::TecmaVkSwapchain_t(
         const TecmaVkSwapchain_t& __other
     ) noexcept {}
+    
     TecmaVkSwapchain_t::TecmaVkSwapchain_t(
         const TecmaVkSwapchain_t&& __other
     ) noexcept {}
+    
     TecmaVkSwapchain_t::~TecmaVkSwapchain_t() noexcept {}
  
+    void TecmaVkSwapchain_t::CreateSynchronizationResources(
+        const VkDevice& __dev
+    ) {
+        VkFenceCreateInfo __fInfo{};
+        VkSemaphoreCreateInfo __sInfo{};
+
+        __fInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+        __fInfo.pNext = NULL;
+        __fInfo.flags = 0;
+
+        __sInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+        __sInfo.pNext = NULL;
+        __sInfo.flags = 0;
+
+        for( int __i{0}; __i < __swchainImgs.__imgs.size(); ++__i ) {
+            vkCreateSemaphore(
+                __dev,
+                &__sInfo,
+                NULL,
+                &__imgAvalSems[__i]
+            );
+
+            vkCreateSemaphore(
+                __dev,
+                &__sInfo,
+                NULL,
+                &__rendFinSems[__i]
+            );
+
+            vkCreateFence(
+                __dev,
+                &__fInfo,
+                NULL,
+                &__inFlightFens[__i]
+            );
+
+        }
+
+    }
+
     void TecmaVkSwapchain_t::CreateVkSwapchain(
         const VkDevice& __dev,
         const VkSurfaceKHR& __surf,
@@ -74,15 +116,15 @@ namespace TecmaEngine {
             VK_FUNCTION_FLAG_VK_GET_SWAPCHAIN_IMAGES_KHR
         );
 
-        __swchainImgs.resize( __count );
-        __swchainImgsViews.resize( __count );
+        __swchainImgs.__imgs.resize( __count );
+        __swchainImgs.__imgsViews.resize( __count );
 
         TecmaLogger(
             (TecmaVkResult)vkGetSwapchainImagesKHR(
                 __dev,
                 __swchain,
                 &__count,
-                __swchainImgs.data()
+                __swchainImgs.__imgs.data()
             ),
             VK_FUNCTION_FLAG_VK_GET_SWAPCHAIN_IMAGES_KHR
         );
@@ -106,14 +148,14 @@ namespace TecmaEngine {
         __info.subresourceRange.levelCount = 1;
 
         for( int __i{0}; __i < __count; ++__i ) {
-            __info.image = __swchainImgs[__i];
+            __info.image = __swchainImgs.__imgs[__i];
 
             TecmaLogger(
                 (TecmaVkResult)vkCreateImageView(
                     __dev,
                     &__info,
                     NULL,
-                    &__swchainImgsViews[__i]
+                    &__swchainImgs.__imgsViews[__i]
                 ),
                 VK_FUNCTION_FLAG_VK_CREATE_IMAGE_VIEW
             );
@@ -127,7 +169,7 @@ namespace TecmaEngine {
     void TecmaVkSwapchain_t::DestroyVkSwapchain(
         const VkDevice& __dev
     ) const noexcept {
-        for( auto& __iView : __swchainImgsViews ) {
+        for( auto& __iView : __swchainImgs.__imgsViews ) {
             vkDestroyImageView(
                 __dev,
                 __iView,    

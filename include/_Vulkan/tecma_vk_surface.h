@@ -2,7 +2,6 @@
 #define __TECMA_VK_SURFACE_H
 
 #include "tecma_vk_core.h"
-#include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
     struct TecmaVkSurface_t {
@@ -25,16 +24,11 @@ namespace TecmaEngine {
         }
         inline const VkExtent2D& GetVkExtent2D() const noexcept { return __surfCapa.currentExtent; }
 
-        #if defined(__TECMA_LINUX)
-            #if defined(__TECMA_XLIB)
-                void CreateVkSurface(
-                    const VkInstance& __inst,
-                    const VkPhysicalDevice& __physDev,
-                    Display** __dsp,
-                    Window& __wnd
-                );
-            #endif
-        #endif
+        void CreateVkSurface(
+            const VkInstance& __inst,
+            const VkPhysicalDevice& __physDev,
+            TecmaVkSurfaceDependencies_t& __dep
+        );
 
         void DestroyVkSurface(
             const VkInstance& __inst

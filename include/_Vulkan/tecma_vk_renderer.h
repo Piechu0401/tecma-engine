@@ -1,14 +1,10 @@
 #ifndef __TECMA_VK_RENDERER_H
 #define __TECMA_VK_RENDERER_H
 
-#include <stdlib.h>
+#include "tecma_vk_render_pass.h"
 
 #ifndef __TECMA_VK_INSTANCE_H
     #include "tecma_vk_instance.h"
-#endif
-
-#ifndef __TECMA_VK_DEBUG_UTILS_H
-    #include "tecma_vk_debug_utils.h"
 #endif
 
 #ifndef __TECMA_VK_SURFACE_H
@@ -27,6 +23,10 @@
     #include "tecma_vk_image.h"
 #endif
 
+#ifndef __TECMA_VK_COMMAND_RESOURCES_H
+    #include "tecma_vk_command_resources.h"
+#endif
+
 namespace TecmaEngine {
     struct TecmaVkRenderer_t {
         explicit TecmaVkRenderer_t() noexcept;
@@ -38,22 +38,28 @@ namespace TecmaEngine {
         ) noexcept;
         ~TecmaVkRenderer_t() noexcept;
 
-        void InitRenderer();
+        void RenderFrame(
+            const unsigned int& __idx
+        );
+
+        void CreateRenderer(
+            const TecmaVkInstance_t& __inst,
+            const TecmaVkDevice_t& __dev,
+            TecmaVkSurfaceDependencies_t& __dep
+        );
+
+        void DestroyRenderer(
+            const VkInstance& __inst,
+            const VkDevice& __dev
+        );
 
         private:
-            #if defined(__TECMA_XLIB)
-                Display* __dsp = nullptr;
-                Window __wnd = 0;
-            #endif
-
-            TecmaVkInstance_t __tecmaInst;
-            TecmaVkDebugUtils_t __tecmaDebug;
-            TecmaVkSurface_t __tecmaSurf;
-            TecmaVkDevice_t __tecmaDev;
-            TecmaVkSwapchain_t __tecmaSwchain;
-            TecmaVkImage_t __tecmaDepthResource;
-
-            void CreateEngineWindow();
+            TecmaVkSurface_t __surf;
+            TecmaVkSwapchain_t __swchain;
+            TecmaVkImage_t __depthResource;
+            TecmaVkCommandResources_t __commandResource;
+            TecmaVkRenderPass_t __UIRenderPass;
+            
             void GetAvailableDevices();
 
     };

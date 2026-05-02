@@ -20,10 +20,11 @@
         #else
             #define VK_INST_EXTENSION_OS_SURFACE_NAME "No surface"        
         #endif
-    #endif
-    #elif defined(__WIN32) || defined(__WIN64) 
+    #elif defined(__TECMA_WINDOWS) 
         #define VK_INST_EXTENSION_OS_SURFACE_NAME "VK_KHR_win32_surface"
-    #include <vulkan/vulkan.h>
+        #include <windows.h>
+        #include <vulkan/vulkan_win32.h>
+    #endif
 #endif
 
 #define VK_INST_LAYER_KHR_VALIDATION_NAME "VK_LAYER_KHRONOS_validation"

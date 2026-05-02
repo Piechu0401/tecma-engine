@@ -3,6 +3,10 @@
 
 #include "tecma_vk_core.h"
 
+#ifndef __TECMA_VK_IMAGE_H
+    #include "tecma_vk_image.h"
+#endif
+
 namespace TecmaEngine {
     struct TecmaVkSwapchain_t {
         explicit TecmaVkSwapchain_t() noexcept;
@@ -28,14 +32,21 @@ namespace TecmaEngine {
         ) const noexcept;
 
         VkSwapchainKHR __swchain;
-        std::vector<VkImage> __swchainImgs;
-        std::vector<VkImageView> __swchainImgsViews;
+        TecmaVkImage_t __swchainImgs;
+        std::vector<VkSemaphore> __imgAvalSems;
+        std::vector<VkSemaphore> __rendFinSems;
+        std::vector<VkFence> __inFlightFens;
+        std::vector<VkFence> __inFlightImgs;
 
         private:
 
         void CreateSwapchainImages(
             const VkDevice& __dev,
             const VkFormat& __form
+        );
+
+        void CreateSynchronizationResources(
+            const VkDevice& __dev
         );
 
     };

@@ -158,6 +158,11 @@ namespace TecmaEngine {
     };
 
     enum TecmaVkFunctionFlag {
+        VK_FUNCTION_FLAG_VK_FREE_DESCRIPTOR_SETS = -11,
+        VK_FUNCTION_FLAG_VK_DESTROY_FRAMEBUFFER = -10,
+        VK_FUNCTION_FLAG_VK_DESTROY_RENDER_PASS = -9,
+        VK_FUNCTION_FLAG_VK_DESTROY_DESCRIPTOR_SET_LAYOUT = -8,
+        VK_FUNCTION_FLAG_VK_DESTROY_DESCRIPTOR_POOL = -7,
         VK_FUNCTION_FLAG_VK_DESTROY_IMAGE_VIEW = -6,
         VK_FUNCTION_FLAG_VK_DESTROY_SWAPCHAIN_KHR = -5,
         VK_FUNCTION_FLAG_VK_DESTROY_DEVICE = -4,
@@ -180,6 +185,13 @@ namespace TecmaEngine {
         VK_FUNCTION_FLAG_VK_GET_SWAPCHAIN_IMAGES_KHR = 13,
         VK_FUNCTION_FLAG_VK_CREATE_IMAGE_VIEW = 14,
         VK_FUNCTION_FLAG_VK_CREATE_IMAGE = 15,
+        VK_FUNCTION_FLAG_VK_ALLOCATE_MEMORY = 16,
+        VK_FUNCTION_FLAG_VK_BIND_MEMORY = 17,
+        VK_FUNCTION_FLAG_VK_ALLOCATE_DESCRIPTOR_SET = 18,
+        VK_FUNCTION_FLAG_VK_CREATE_DESCRIPTOR_POOL = 19,
+        VK_FUNCTION_FLAG_VK_CREATE_DESCRIPTOR_SET_LAYOUT = 20,
+        VK_FUNCTION_FLAG_VK_CREATE_RENDER_PASS = 21,
+        VK_FUNCTION_FLAG_VK_CREATE_FRAMEBUFFER = 22,
 
     };
 
@@ -226,6 +238,11 @@ namespace TecmaEngine {
         const TecmaVkFunctionFlag& __funcType
     ) noexcept {
         switch( __funcType ) {
+            case VK_FUNCTION_FLAG_VK_FREE_DESCRIPTOR_SETS: return "vkFreeDescriptorSets()";
+            case VK_FUNCTION_FLAG_VK_DESTROY_FRAMEBUFFER: return "vkDestroyFramebuffer()";
+            case VK_FUNCTION_FLAG_VK_DESTROY_RENDER_PASS: return "vkDestroyRenderPass()";
+            case VK_FUNCTION_FLAG_VK_DESTROY_DESCRIPTOR_POOL: return "vkDestroyDescriptorPool()";
+            case VK_FUNCTION_FLAG_VK_DESTROY_DESCRIPTOR_SET_LAYOUT: return "vkDestroyDescriptorSetLayout()";
             case VK_FUNCTION_FLAG_VK_DESTROY_IMAGE_VIEW: return "vkDestroyVkImageView()";
             case VK_FUNCTION_FLAG_VK_DESTROY_SWAPCHAIN_KHR: return "vkDestroySwapchainKHR()";
             case VK_FUNCTION_FLAG_VK_DESTROY_DEVICE: return "vkDestroyDevice()";
@@ -248,6 +265,13 @@ namespace TecmaEngine {
             case VK_FUNCTION_FLAG_VK_GET_SWAPCHAIN_IMAGES_KHR: return "vkGetSwapchainImagesKHR()";
             case VK_FUNCTION_FLAG_VK_CREATE_IMAGE_VIEW: return "vkCreateImageView()";
             case VK_FUNCTION_FLAG_VK_CREATE_IMAGE: return "vkCreateImage()";
+            case VK_FUNCTION_FLAG_VK_ALLOCATE_MEMORY: return "vkAllocateMemory()";
+            case VK_FUNCTION_FLAG_VK_BIND_MEMORY: return "vkBindImageMemory()";
+            case VK_FUNCTION_FLAG_VK_ALLOCATE_DESCRIPTOR_SET: return "vkAllocateDescriptorSets()";
+            case VK_FUNCTION_FLAG_VK_CREATE_DESCRIPTOR_POOL: return "vkCreateDescriptorPool()";
+            case VK_FUNCTION_FLAG_VK_CREATE_DESCRIPTOR_SET_LAYOUT: return "vkCreateDescriptorSetLayout()";
+            case VK_FUNCTION_FLAG_VK_CREATE_RENDER_PASS: return "vkCreateRenderPass()";
+            case VK_FUNCTION_FLAG_VK_CREATE_FRAMEBUFFER: return "vkCreateFramebuffer()";
             default: return "VK_FUNCTION_FLAG_UNKNOWN";
 
         }

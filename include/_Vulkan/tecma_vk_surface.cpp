@@ -15,54 +15,52 @@ namespace TecmaEngine {
 
     TecmaVkSurface_t::~TecmaVkSurface_t() noexcept {}               
 
-    #if defined(__TECMA_LINUX)
+    void TecmaVkSurface_t::CreateVkSurface(
+        const VkInstance& __inst,
+        const VkPhysicalDevice& __physDev,
+        TecmaVkSurfaceDependencies_t& __dep
+    ) {
         #if defined(__TECMA_XLIB)
-            void TecmaVkSurface_t::CreateVkSurface(
-                const VkInstance& __inst,
-                const VkPhysicalDevice& __physDev,
-                Display** __dsp,
-                Window& __wnd
-            ) {
-                if( !__dsp ) TecmaLogger( TECMA_ERROR_XLIB_DISPLAY_NULL );
-                else if( !__wnd ) TecmaLogger( TECMA_ERROR_XLIB_WINDOW_ZERO );
+            if( !__dep.__dsp ) TecmaLogger( TECMA_ERROR_XLIB_DISPLAY_NULL );
+            else if( !__dep.__wnd ) TecmaLogger( TECMA_ERROR_XLIB_WINDOW_ZERO );
 
-                VkXlibSurfaceCreateInfoKHR __info{};
+            VkXlibSurfaceCreateInfoKHR __info{};
 
-                __info.sType = VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR;
-                __info.pNext = nullptr;
-                __info.flags = 0;
-                __info.dpy = *__dsp;
-                __info.window = __wnd;
+            __info.sType = VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR;
+            __info.pNext = nullptr;
+            __info.flags = 0;
+            __info.dpy = __dep.__dsp;
+            __info.window = __dep.__wnd;
 
-                TecmaLogger(
-                    (TecmaVkResult)vkCreateXlibSurfaceKHR(
-                        __inst,
-                        &__info,
-                        NULL,
-                        &__surf
-                    ),
-                    VK_FUNCTION_FLAG_VK_CREATE_SURFACE_KHR
-                );
+            TecmaLogger(
+                (TecmaVkResult)vkCreateXlibSurfaceKHR(
+                    __inst,
+                    &__info,
+                    NULL,
+                    &__surf
+                ),
+                VK_FUNCTION_FLAG_VK_CREATE_SURFACE_KHR
+            );
 
-                GetCapabilities(
-                    __physDev
-                );
-
-                PickVkSurfaceFormat(
-                    __physDev
-                );
-
-                PickVkPresentMode(
-                    __physDev
-                );
-
-                PickSupportedDepthVkFormat(
-                    __physDev
-                );
-
-            }
         #endif
-    #endif
+
+            GetCapabilities(
+                __physDev
+            );
+
+            PickVkSurfaceFormat(
+                __physDev
+            );
+
+            PickVkPresentMode(
+                __physDev
+            );
+
+            PickSupportedDepthVkFormat(
+                __physDev
+            );
+
+    }
 
     void TecmaVkSurface_t::PickSupportedDepthVkFormat(
         const VkPhysicalDevice& __physDev

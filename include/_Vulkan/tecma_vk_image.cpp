@@ -1,5 +1,4 @@
 #include "tecma_vk_image.h"
-#include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
     TecmaVkImage_t::TecmaVkImage_t() noexcept {}
@@ -79,18 +78,24 @@ namespace TecmaEngine {
 
             __info.allocationSize = __req.size;
             
-            vkAllocateMemory(
-                __dev,
-                &__info,
-                NULL,
-                &__imgsMem[__i]
+            TecmaLogger(
+                (TecmaVkResult)vkAllocateMemory(
+                    __dev,
+                    &__info,
+                    NULL,
+                    &__imgsMem[__i]
+                ),
+                VK_FUNCTION_FLAG_VK_ALLOCATE_MEMORY
             );
 
-            vkBindImageMemory(
-                __dev,
-                __imgs[__i],
-                __imgsMem[__i],
-                0
+            TecmaLogger(
+                (TecmaVkResult)vkBindImageMemory(
+                    __dev,
+                    __imgs[__i],
+                    __imgsMem[__i],
+                    0
+                ),
+                VK_FUNCTION_FLAG_VK_ALLOCATE_MEMORY
             );
 
         }
@@ -132,6 +137,28 @@ namespace TecmaEngine {
             );
 
         }
+
+    }
+
+    void TecmaVkImage_t::CreateImages(
+        const VkDevice& __dev,
+        const std::vector<VkImage> __fromImgs,
+        const unsigned int& __memIndex,
+        const VkFormat& __form,
+        const VkImageAspectFlags& __flags
+    ) {
+        __imgs = __fromImgs;
+
+        AllocVkImages(
+            __dev,
+            __memIndex
+        );
+
+        CreateVkImagesViews(
+            __dev,
+            __form,
+            __flags
+        );
 
     }
 

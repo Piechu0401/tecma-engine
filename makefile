@@ -2,8 +2,8 @@ __COMP = g++
 __CXXFLAGS = -std=c++17
 __FLAGS = -lvulkan
 
-__DST = build/app
-__SRC = build/app.cpp $(wildcard include/_*/*.cpp)
+__DST = build/TecmaEngine
+__SRC = build/TecmaEngine.cpp $(wildcard include/_*/*.cpp)
 __OBJ = $(__SRC:.cpp=.o)
 
 ifdef WAYLAND_DISPLAY

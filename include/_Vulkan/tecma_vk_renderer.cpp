@@ -3,111 +3,96 @@
 
 namespace TecmaEngine {
     TecmaVkRenderer_t::TecmaVkRenderer_t() noexcept {}
+    
     TecmaVkRenderer_t::TecmaVkRenderer_t(
         const TecmaVkRenderer_t& __other
     ) noexcept {}
+    
     TecmaVkRenderer_t::TecmaVkRenderer_t(
         const TecmaVkRenderer_t&& __other
     ) noexcept {}
-    TecmaVkRenderer_t::~TecmaVkRenderer_t() noexcept {
-        __tecmaDepthResource.DestroyImages(
-            __tecmaDev.__dev
-        );
-        
-        __tecmaSwchain.DestroyVkSwapchain(
-            __tecmaDev.__dev
-        );
-        
-        __tecmaDev.DestroyVkDevice();
+    
+    TecmaVkRenderer_t::~TecmaVkRenderer_t() noexcept {}
 
-        __tecmaSurf.DestroyVkSurface( 
-            __tecmaInst.__inst
+    void TecmaVkRenderer_t::RenderFrame(
+        const unsigned int& __idx
+    ) {
+        __UIRenderPass.BeginRenderPass(
+            __idx,
+            __commandResource.__commBuffs[__idx]
         );
 
-        __tecmaDebug.DestroyVkDebugUtilsMessenger(
-            __tecmaInst.__inst
+        __commandResource.BeginCommandBuffer(
+            __idx, 
+            __UIRenderPass.__frameBuffs[__idx], 
+            __UIRenderPass.__rendPass
         );
 
-        __tecmaInst.DestroyVkInstance();
+        __commandResource.EndCommandBuffer(
+            __idx
+        );
 
-        #if defined(__TECMA_XLIB)
-            XUnmapWindow( __dsp, __wnd );
-            // XCloseDisplay( __dsp );
-        #endif
+        __UIRenderPass.EndRenderPass(
+            __commandResource.__commBuffs[__idx]
+        );
 
     }
 
-    void TecmaVkRenderer_t::CreateEngineWindow() {
-        #if defined(__TECMA_XLIB)
-            __dsp = XOpenDisplay( NULL );
-            if( !__dsp ) TecmaLogger(TECMA_ERROR_XLIB_DISPLAY_FAILED);
-            
-            __wnd = XCreateSimpleWindow(
-                __dsp,
-                DefaultRootWindow( __dsp ),
-                0,
-                0,
-                800,
-                800,
-                0,
-                0,
-                0
-            );
+    void TecmaVkRenderer_t::DestroyRenderer(
+        const VkInstance& __inst,
+        const VkDevice& __dev
+    ) {
+        // __UIRenderPass.DestroyVkRenderPass(
+        //     __dev
+        // );
+        
+        __depthResource.DestroyImages(
+            __dev
+        );
+        
+        __swchain.DestroyVkSwapchain(
+            __dev
+        );
 
-            if( !__wnd ) TecmaLogger(TECMA_ERROR_XLIB_WINDOW_FAILED);
-
-            XMapWindow( __dsp, __wnd );
-            
-        #endif
+        __surf.DestroyVkSurface(
+            __inst
+        );
 
     }
 
-    void TecmaVkRenderer_t::InitRenderer() {
-        TecmaVkInstanceLayersSupported();
-        TecmaVkInstanceExtensionsSupported();
-
-        CreateEngineWindow();
-
-        __tecmaInst.CreateVkInstance(
-            __TECMA_ENGINE_NAME,
-            __TECMA_ENGINE_VERSION
+    void TecmaVkRenderer_t::CreateRenderer(
+        const TecmaVkInstance_t& __inst,
+        const TecmaVkDevice_t& __dev,
+        TecmaVkSurfaceDependencies_t& __dep
+    ) {
+        __surf.CreateVkSurface(
+            __inst.__inst,
+            __dev.__physDev,
+            __dep
         );
 
-        __tecmaDebug.CreateVkDebugUtilsMessenger(
-            __tecmaInst.__inst
+        __swchain.CreateVkSwapchain(
+            __dev.__dev, 
+            __surf.__surf, 
+            __surf.__surfColorForm,
+            __surf.__surfCapa, 
+            __surf.__presMode,
+            __dev.GetFamilyIndices()
         );
 
-        __tecmaDev.CreateVkDevice(
-            __tecmaInst.__inst
-        );
-
-        #if defined(__TECMA_XLIB)
-            __tecmaSurf.CreateVkSurface(
-                __tecmaInst.__inst,
-                __tecmaDev.__physDev,
-                &__dsp,
-                __wnd
-            );
-        #endif
-
-        __tecmaSwchain.CreateVkSwapchain(
-            __tecmaDev.__dev, 
-            __tecmaSurf.__surf, 
-            __tecmaSurf.__surfColorForm,
-            __tecmaSurf.__surfCapa, 
-            __tecmaSurf.__presMode,
-            __tecmaDev.GetFamilyIndices()
-        );
-
-        __tecmaDepthResource.CreateImages(
-            __tecmaDev.__dev,
-            __tecmaSurf.__surfCapa.minImageCount + 1,
-            __tecmaDev.FindMemoryIndex( VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT ),
-            __tecmaSurf.__depthForm,
+        __depthResource.CreateImages(
+            __dev.__dev,
+            __surf.__surfCapa.minImageCount + 1,
+            __dev.FindMemoryIndex( VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT ),
+            __surf.__depthForm,
             VK_IMAGE_ASPECT_DEPTH_BIT,
-            __tecmaSurf.GetVkExtent3D(),
-            __tecmaDev.GetFamilyIndices()
+            __surf.GetVkExtent3D(),
+            __dev.GetFamilyIndices()
         );
+
+        // __UIRenderPass.CreateVkRenderPass(
+        //     __dev.__dev
+        // );
 
     }
 
