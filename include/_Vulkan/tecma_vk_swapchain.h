@@ -10,12 +10,15 @@
 namespace TecmaEngine {
     struct TecmaVkSwapchain_t {
         explicit TecmaVkSwapchain_t() noexcept;
+        
         explicit TecmaVkSwapchain_t(
-            const TecmaVkSwapchain_t& __other
+            TecmaVkSwapchain_t& __other
         ) noexcept;
+        
         explicit TecmaVkSwapchain_t(
-            const TecmaVkSwapchain_t&& __other
+            TecmaVkSwapchain_t&& __other
         ) noexcept;
+        
         ~TecmaVkSwapchain_t() noexcept;
 
         void CreateVkSwapchain(

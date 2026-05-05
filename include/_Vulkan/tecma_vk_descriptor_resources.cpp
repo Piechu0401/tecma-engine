@@ -4,11 +4,11 @@ namespace TecmaEngine {
     TecmaVkDescriptorResources_t::TecmaVkDescriptorResources_t() noexcept {}
 
     TecmaVkDescriptorResources_t::TecmaVkDescriptorResources_t(
-        const TecmaVkDescriptorResources_t& __other
+        TecmaVkDescriptorResources_t& __other
     ) noexcept {}
 
     TecmaVkDescriptorResources_t::TecmaVkDescriptorResources_t(
-        const TecmaVkDescriptorResources_t&& __other
+        TecmaVkDescriptorResources_t&& __other
     ) noexcept {}
 
     void TecmaVkDescriptorResources_t::DestroyVkDescriptorResources(

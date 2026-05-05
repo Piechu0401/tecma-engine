@@ -8,11 +8,11 @@ namespace TecmaEngine {
         explicit TecmaVkDescriptorResources_t() noexcept;
 
         explicit TecmaVkDescriptorResources_t(
-            const TecmaVkDescriptorResources_t& __other
+            TecmaVkDescriptorResources_t& __other
         ) noexcept;
 
         explicit TecmaVkDescriptorResources_t(
-            const TecmaVkDescriptorResources_t&& __other
+            TecmaVkDescriptorResources_t&& __other
         ) noexcept;
 
         VkDescriptorPool __descPool;

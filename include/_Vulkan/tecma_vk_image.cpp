@@ -4,11 +4,11 @@ namespace TecmaEngine {
     TecmaVkImage_t::TecmaVkImage_t() noexcept {}
     
     TecmaVkImage_t::TecmaVkImage_t(
-        const TecmaVkImage_t& __other
+        TecmaVkImage_t& __other
     ) noexcept {}
     
     TecmaVkImage_t::TecmaVkImage_t(
-        const TecmaVkImage_t&& __other
+        TecmaVkImage_t&& __other
     ) noexcept {}
 
     void TecmaVkImage_t::CreateVkImages(

@@ -5,11 +5,11 @@ namespace TecmaEngine {
     TecmaVkDevice_t::TecmaVkDevice_t() noexcept {}
     
     TecmaVkDevice_t::TecmaVkDevice_t(
-        const TecmaVkDevice_t& __other
+        TecmaVkDevice_t& __other
     ) noexcept {}
 
     TecmaVkDevice_t::TecmaVkDevice_t(
-        const TecmaVkDevice_t&& __other
+        TecmaVkDevice_t&& __other
     ) noexcept {}
     
     TecmaVkDevice_t::~TecmaVkDevice_t() noexcept {}

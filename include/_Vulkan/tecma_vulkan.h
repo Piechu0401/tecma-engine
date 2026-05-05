@@ -23,11 +23,11 @@ namespace TecmaEngine {
         explicit TecmaVulkan_t() noexcept;
 
         explicit TecmaVulkan_t(
-            const TecmaVulkan_t& __other
+            TecmaVulkan_t& __other
         ) noexcept;
 
         explicit TecmaVulkan_t(
-            const TecmaVulkan_t&& __other
+            TecmaVulkan_t&& __other
         ) noexcept;
 
         ~TecmaVulkan_t() noexcept;

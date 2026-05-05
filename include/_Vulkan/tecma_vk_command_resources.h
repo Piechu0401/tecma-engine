@@ -9,11 +9,11 @@ namespace TecmaEngine {
         explicit TecmaVkCommandResources_t() noexcept;
 
         explicit TecmaVkCommandResources_t(
-            const TecmaVkCommandResources_t& __other
+            TecmaVkCommandResources_t& __other
         ) noexcept;
 
         explicit TecmaVkCommandResources_t(
-            const TecmaVkCommandResources_t&& __other
+            TecmaVkCommandResources_t&& __other
         ) noexcept;
 
         ~TecmaVkCommandResources_t() noexcept;

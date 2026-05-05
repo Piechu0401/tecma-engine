@@ -6,9 +6,11 @@
 namespace TecmaEngine {
     struct TecmaVkDebugUtils_t {
         explicit TecmaVkDebugUtils_t() noexcept;
+        
         explicit TecmaVkDebugUtils_t( 
             TecmaVkDebugUtils_t& __other 
         ) noexcept;
+        
         explicit TecmaVkDebugUtils_t( 
             TecmaVkDebugUtils_t&& __other 
         ) noexcept;

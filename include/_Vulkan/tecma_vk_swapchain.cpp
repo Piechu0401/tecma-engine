@@ -4,11 +4,11 @@ namespace TecmaEngine {
     TecmaVkSwapchain_t::TecmaVkSwapchain_t() noexcept {}
     
     TecmaVkSwapchain_t::TecmaVkSwapchain_t(
-        const TecmaVkSwapchain_t& __other
+        TecmaVkSwapchain_t& __other
     ) noexcept {}
     
     TecmaVkSwapchain_t::TecmaVkSwapchain_t(
-        const TecmaVkSwapchain_t&& __other
+        TecmaVkSwapchain_t&& __other
     ) noexcept {}
     
     TecmaVkSwapchain_t::~TecmaVkSwapchain_t() noexcept {}

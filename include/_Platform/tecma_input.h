@@ -1,31 +1,47 @@
-#ifndef __TECMA_INPUT_H 
+#ifndef __TECMA_INPUT_H
 #define __TECMA_INPUT_H
 
-#include <unordered_map>
+#include <deque>
+
+#if defined( __TECMA_XLIB )
+    #include <X11/Xlib.h>
+    #include <X11/Xutil.h>
+#endif
+
+#ifndef __TECMA_ENUM_H
+    #include "../_Core/tecma_enum.h"
+#endif
+
+#ifndef __TECMA_INPUT_CACHE_LIMIT
+    #define __TECMA_INPUT_CACHE_LIMIT 16
+#endif
 
 namespace TecmaEngine {
     struct TecmaInput_t {
         explicit TecmaInput_t() noexcept;
         
         explicit TecmaInput_t(
-            const TecmaInput_t& __other
+            TecmaInput_t& __other
         ) noexcept;
 
         explicit TecmaInput_t(
-            const TecmaInput_t&& __other
+            TecmaInput_t&& __other
         ) noexcept;
         
         ~TecmaInput_t() noexcept;
 
-        const void operator()(
-            const int& __key
-        ) const noexcept;
+        #if defined( __TECMA_XLIB )
+            void CheckOutInput(
+                XKeyEvent& __key
+            ) noexcept;
 
-        // unordered map of pointers to function which will handle
-        // response to given input value
-        // pretty straight forward
+            void CheckOutInput(
+                XButtonEvent& __button
+            ) noexcept;
 
-        std::unordered_map<int, void*> __inputResponse;
+        #endif
+
+        std::deque<unsigned long> __pressedCache;
 
     };
 

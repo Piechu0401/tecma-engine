@@ -30,12 +30,15 @@
 namespace TecmaEngine {
     struct TecmaVkRenderer_t {
         explicit TecmaVkRenderer_t() noexcept;
+        
         explicit TecmaVkRenderer_t(
-            const TecmaVkRenderer_t& __other
+            TecmaVkRenderer_t& __other
         ) noexcept;
+        
         explicit TecmaVkRenderer_t(
-            const TecmaVkRenderer_t&& __other
+            TecmaVkRenderer_t&& __other
         ) noexcept;
+        
         ~TecmaVkRenderer_t() noexcept;
 
         void RenderFrame(

@@ -7,12 +7,15 @@
 namespace TecmaEngine {
     struct TecmaVkDevice_t {
         explicit TecmaVkDevice_t() noexcept;
+        
         explicit TecmaVkDevice_t(
-            const TecmaVkDevice_t& __other
+            TecmaVkDevice_t& __other
         ) noexcept;
+        
         explicit TecmaVkDevice_t(
-            const TecmaVkDevice_t&& __other
+            TecmaVkDevice_t&& __other
         ) noexcept;
+        
         ~TecmaVkDevice_t() noexcept;
 
         const unsigned int FindMemoryIndex(

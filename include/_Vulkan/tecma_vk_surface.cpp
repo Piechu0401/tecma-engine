@@ -6,11 +6,11 @@ namespace TecmaEngine {
     TecmaVkSurface_t::TecmaVkSurface_t() noexcept {}
     
     TecmaVkSurface_t::TecmaVkSurface_t(
-        const TecmaVkSurface_t& __other
+        TecmaVkSurface_t& __other
     ) noexcept {}
 
     TecmaVkSurface_t::TecmaVkSurface_t(
-        const TecmaVkSurface_t&& __other
+        TecmaVkSurface_t&& __other
     ) noexcept {}
 
     TecmaVkSurface_t::~TecmaVkSurface_t() noexcept {}               

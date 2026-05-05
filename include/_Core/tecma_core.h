@@ -21,6 +21,7 @@
 #if defined(__TECMA_WAYLAND)
     #include <wayland-client.h>
 #elif defined(__TECMA_XLIB)
+    #define __TECMA_ATOM_WM_DELETE_WINDOW "WM_DELETE_WINDOW"
     #include <X11/Xlib.h>
 #endif
 
@@ -66,11 +67,11 @@ namespace TecmaEngine {
     };
 
     // logger object, yeah yeah cry about how its used
-    const TecmaLogger_t TecmaLogger;
-    
+    static TecmaLogger_t TecmaLogger;
+
     // input object, anything you will press will be harshly
     // judged by this individual
-    const TecmaInput_t TecmaInput;
+    static TecmaInput_t TecmaInput;
     
 };
 

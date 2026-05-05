@@ -1,15 +1,14 @@
 #include "tecma_vk_renderer.h"
-#include <vulkan/vulkan_core.h>
 
 namespace TecmaEngine {
     TecmaVkRenderer_t::TecmaVkRenderer_t() noexcept {}
     
     TecmaVkRenderer_t::TecmaVkRenderer_t(
-        const TecmaVkRenderer_t& __other
+        TecmaVkRenderer_t& __other
     ) noexcept {}
     
     TecmaVkRenderer_t::TecmaVkRenderer_t(
-        const TecmaVkRenderer_t&& __other
+        TecmaVkRenderer_t&& __other
     ) noexcept {}
     
     TecmaVkRenderer_t::~TecmaVkRenderer_t() noexcept {}

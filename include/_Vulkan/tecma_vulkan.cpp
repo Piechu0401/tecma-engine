@@ -4,11 +4,11 @@ namespace TecmaEngine {
         TecmaVulkan_t::TecmaVulkan_t() noexcept {}
 
         TecmaVulkan_t::TecmaVulkan_t(
-            const TecmaVulkan_t& __other
+            TecmaVulkan_t& __other
         ) noexcept {}
 
         TecmaVulkan_t::TecmaVulkan_t(
-            const TecmaVulkan_t&& __other
+            TecmaVulkan_t&& __other
         ) noexcept {}
 
         TecmaVulkan_t::~TecmaVulkan_t() noexcept {}

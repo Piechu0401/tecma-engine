@@ -6,12 +6,15 @@
 namespace TecmaEngine {
     struct TecmaVkSurface_t {
         explicit TecmaVkSurface_t() noexcept;
+        
         explicit TecmaVkSurface_t(
-            const TecmaVkSurface_t& __other
+            TecmaVkSurface_t& __other
         ) noexcept;
+        
         explicit TecmaVkSurface_t(
-            const TecmaVkSurface_t&& __other
+            TecmaVkSurface_t&& __other
         ) noexcept;
+        
         ~TecmaVkSurface_t() noexcept;
 
         inline const VkExtent3D GetVkExtent3D() const noexcept { 

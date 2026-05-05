@@ -3,12 +3,15 @@
 
 namespace TecmaEngine {
     TecmaVkInstance_t::TecmaVkInstance_t() noexcept {}
+    
     TecmaVkInstance_t::TecmaVkInstance_t(
-        const TecmaVkInstance_t& __other
+        TecmaVkInstance_t& __other
     ) noexcept {}
+    
     TecmaVkInstance_t::TecmaVkInstance_t(
-        const TecmaVkInstance_t&& __other
+        TecmaVkInstance_t&& __other
     ) noexcept {}
+    
     TecmaVkInstance_t::~TecmaVkInstance_t() noexcept {}
 
     void TecmaVkInstance_t::CreateVkInstance(

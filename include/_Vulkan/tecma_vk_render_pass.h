@@ -8,11 +8,11 @@ namespace TecmaEngine {
         explicit TecmaVkRenderPass_t() noexcept;
         
         explicit TecmaVkRenderPass_t(
-            const TecmaVkRenderPass_t& __other
+            TecmaVkRenderPass_t& __other
         ) noexcept;
         
         explicit TecmaVkRenderPass_t(
-            const TecmaVkRenderPass_t&& __other
+            TecmaVkRenderPass_t&& __other
         ) noexcept;
         
         void BeginRenderPass(

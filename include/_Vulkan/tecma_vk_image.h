@@ -6,11 +6,13 @@
 namespace TecmaEngine {
     struct TecmaVkImage_t {
         explicit TecmaVkImage_t() noexcept;
+        
         explicit TecmaVkImage_t(
-            const TecmaVkImage_t& __other
+            TecmaVkImage_t& __other
         ) noexcept;
+        
         explicit TecmaVkImage_t(
-            const TecmaVkImage_t&& __other
+            TecmaVkImage_t&& __other
         ) noexcept;
 
         void CreateImages(

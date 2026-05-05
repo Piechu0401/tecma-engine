@@ -18,14 +18,43 @@ namespace TecmaEngine {
     }
     
     TecmaWindow_t::TecmaWindow_t(
-        const TecmaWindow_t& __other
+        TecmaWindow_t& __other
     ) noexcept {}
     
     TecmaWindow_t::TecmaWindow_t(
-        const TecmaWindow_t&& __other
+        TecmaWindow_t&& __other
     ) noexcept {}
 
     TecmaWindow_t::~TecmaWindow_t() noexcept {}
+
+    void TecmaWindow_t::CheckForEvents() noexcept {
+        #if defined( __TECMA_XLIB )
+            XEvent __eve;
+
+            while( XPending( __surfDep.__dsp ) ) { 
+                XNextEvent( 
+                    __surfDep.__dsp, 
+                    &__eve 
+                );
+
+                if( 
+                    __eve.type == KeyPress
+                ) TecmaInput.CheckOutInput( __eve.xkey );
+                else if(
+                    __eve.type == ButtonPress
+                ) TecmaInput.CheckOutInput( __eve.xbutton );
+                else if( __eve.type == ClientMessage )
+                    if( (Atom)__eve.xclient.data.l[0] == __WM_CLOSE ) {
+                        __open = __TECMA_FALSE;
+                        return;
+
+                    }
+
+            }
+
+        #endif
+
+    }
 
     void TecmaWindow_t::CreateWindow(
         const TecmaWindowCreateInfo_ci& __ci
@@ -48,12 +77,27 @@ namespace TecmaEngine {
 
             if( !__surfDep.__wnd ) TecmaLogger(TECMA_ERROR_XLIB_WINDOW_FAILED);
 
+            __WM_CLOSE = XInternAtom(
+                __surfDep.__dsp,
+                __TECMA_ATOM_WM_DELETE_WINDOW,
+                __TECMA_FALSE
+            );
+
             XSelectInput(
                 __surfDep.__dsp, 
                 __surfDep.__wnd,
                 KeyPressMask |
+                KeyReleaseMask |
                 ButtonPressMask |
+                ButtonReleaseMask |
                 ExposureMask
+            );
+
+            XSetWMProtocols(
+                __surfDep.__dsp, 
+                __surfDep.__wnd, 
+                &__WM_CLOSE, 
+                __TECMA_TRUE
             );
 
             XMapWindow( __surfDep.__dsp, __surfDep.__wnd );

@@ -2,6 +2,134 @@
 #define __TECMA_ENUM_H
 
 namespace TecmaEngine {
+    enum TecmaInputFlag {
+        #if defined( __TECMA_XLIB )
+        TECMA_INPUT_KEY_F1 = 0xffbe,
+        TECMA_INPUT_KEY_F2 = 0xffbf,
+        TECMA_INPUT_KEY_F3 = 0xffc0,
+        TECMA_INPUT_KEY_F4 = 0xffc1,
+        TECMA_INPUT_KEY_F5 = 0xffc2,
+        TECMA_INPUT_KEY_F6 = 0xffc3,
+        TECMA_INPUT_KEY_F7 = 0xffc4,
+        TECMA_INPUT_KEY_F8 = 0xffc5,
+        TECMA_INPUT_KEY_F9 = 0xffc6,
+        TECMA_INPUT_KEY_F10 = 0xffc7,
+        TECMA_INPUT_KEY_F11 = 0xffc8,
+        TECMA_INPUT_KEY_F12 = 0xffc9, 
+        TECMA_INPUT_KEY_0 = 0x0030,
+        TECMA_INPUT_KEY_1 = 0x0031,
+        TECMA_INPUT_KEY_2 = 0x0032,
+        TECMA_INPUT_KEY_3 = 0x0033,
+        TECMA_INPUT_KEY_4 = 0x0034,
+        TECMA_INPUT_KEY_5 = 0x0035,
+        TECMA_INPUT_KEY_6 = 0x0036,
+        TECMA_INPUT_KEY_7 = 0x0037,
+        TECMA_INPUT_KEY_8 = 0x0038,
+        TECMA_INPUT_KEY_9 = 0x0039,
+        TECMA_INPUT_KEY_grave = 0x0060,
+        TECMA_INPUT_KEY_exclam = 0x0021,
+        TECMA_INPUT_KEY_at = 0x0040,
+        TECMA_INPUT_KEY_numbersign = 0x0023,
+        TECMA_INPUT_KEY_dollar = 0x0024,
+        TECMA_INPUT_KEY_percent = 0x0025,
+        TECMA_INPUT_KEY_asciicircum = 0x005e,
+        TECMA_INPUT_KEY_ampersand = 0x0026,
+        TECMA_INPUT_KEY_asterisk = 0x002a,
+        TECMA_INPUT_KEY_parenleft = 0x0028,
+        TECMA_INPUT_KEY_parenright = 0x0029,
+        TECMA_INPUT_KEY_underscore = 0x005f,
+        TECMA_INPUT_KEY_plus = 0x002b,
+        TECMA_INPUT_KEY_minus = 0x002d,
+        TECMA_INPUT_KEY_equal = 0x003d,
+        TECMA_INPUT_KEY_A = 0x0041,
+        TECMA_INPUT_KEY_B = 0x0042,
+        TECMA_INPUT_KEY_C = 0x0043,
+        TECMA_INPUT_KEY_D = 0x0044,
+        TECMA_INPUT_KEY_E = 0x0045,
+        TECMA_INPUT_KEY_F = 0x0046,
+        TECMA_INPUT_KEY_G = 0x0047,
+        TECMA_INPUT_KEY_H = 0x0048,
+        TECMA_INPUT_KEY_I = 0x0049,
+        TECMA_INPUT_KEY_J = 0x004a,
+        TECMA_INPUT_KEY_K = 0x004b,
+        TECMA_INPUT_KEY_L = 0x004c,
+        TECMA_INPUT_KEY_M = 0x004d,
+        TECMA_INPUT_KEY_N = 0x004e,
+        TECMA_INPUT_KEY_O = 0x004f,
+        TECMA_INPUT_KEY_P = 0x0050, 
+        TECMA_INPUT_KEY_Q = 0x0051,
+        TECMA_INPUT_KEY_R = 0x0052,
+        TECMA_INPUT_KEY_S = 0x0053,
+        TECMA_INPUT_KEY_T = 0x0054,
+        TECMA_INPUT_KEY_U = 0x0055,
+        TECMA_INPUT_KEY_V = 0x0056,
+        TECMA_INPUT_KEY_W = 0x0057,
+        TECMA_INPUT_KEY_X = 0x0058,
+        TECMA_INPUT_KEY_Y = 0x0059,
+        TECMA_INPUT_KEY_Z = 0x005a, 
+        TECMA_INPUT_KEY_a = 0x0061,
+        TECMA_INPUT_KEY_b = 0x0062,
+        TECMA_INPUT_KEY_c = 0x0063,
+        TECMA_INPUT_KEY_d = 0x0064,
+        TECMA_INPUT_KEY_e = 0x0065,
+        TECMA_INPUT_KEY_f = 0x0066,
+        TECMA_INPUT_KEY_g = 0x0067,
+        TECMA_INPUT_KEY_h = 0x0068,
+        TECMA_INPUT_KEY_i = 0x0069,
+        TECMA_INPUT_KEY_j = 0x006a,
+        TECMA_INPUT_KEY_k = 0x006b,
+        TECMA_INPUT_KEY_l = 0x006c,
+        TECMA_INPUT_KEY_m = 0x006d,
+        TECMA_INPUT_KEY_n = 0x006e,
+        TECMA_INPUT_KEY_o = 0x006f,
+        TECMA_INPUT_KEY_p = 0x0070,
+        TECMA_INPUT_KEY_q = 0x0071,
+        TECMA_INPUT_KEY_r = 0x0072,
+        TECMA_INPUT_KEY_s = 0x0073,
+        TECMA_INPUT_KEY_t = 0x0074,
+        TECMA_INPUT_KEY_u = 0x0075,
+        TECMA_INPUT_KEY_v = 0x0076,
+        TECMA_INPUT_KEY_w = 0x0077,
+        TECMA_INPUT_KEY_x = 0x0078,
+        TECMA_INPUT_KEY_y = 0x0079,
+        TECMA_INPUT_KEY_z = 0x007a,
+        TECMA_INPUT_KEY_UP = 0xff52,
+        TECMA_INPUT_KEY_DOWN = 0xff54,
+        TECMA_INPUT_KEY_LEFT = 0xff51,
+        TECMA_INPUT_KEY_RIGHT = 0xff53,
+        TECMA_INPUT_KEY_SPACE = 0x0020,
+        TECMA_INPUT_KEY_ESC = 0xff1b,
+        TECMA_INPUT_KEY_ENTER = 0xff0d,
+        TECMA_INPUT_KEY_BACKSPACE = 0xff08,
+        TECMA_INPUT_KEY_TAB = 0xff09,
+        TECMA_INPUT_KEY_TILDE = 0x007e,
+        TECMA_INPUT_KEY_CAPSLOCK = 0xffe5,
+        TECMA_INPUT_KEY_L_ALT = 0xffe9,
+        TECMA_INPUT_KEY_R_ALT = 0xffea,
+        TECMA_INPUT_KEY_L_CTRL = 0xffe3,
+        TECMA_INPUT_KEY_R_CTRL = 0xffe4,
+        TECMA_INPUT_KEY_L_SHIFT = 0xffe1,
+        TECMA_INPUT_KEY_R_SHIFT = 0xffe2,
+        TECMA_INPUT_KEY_comma = 0x002c,
+        TECMA_INPUT_KEY_less = 0x003c,
+        TECMA_INPUT_KEY_period = 0x002e,
+        TECMA_INPUT_KEY_greater = 0x003e,
+        TECMA_INPUT_KEY_slash = 0x002f,
+        TECMA_INPUT_KEY_question = 0x003f,
+        TECMA_INPUT_KEY_semicolon = 0x003b,
+        TECMA_INPUT_KEY_colon = 0x003a,
+        TECMA_INPUT_KEY_apostrophe = 0x0027,
+        TECMA_INPUT_KEY_quotedbl = 0x0022,
+        TECMA_INPUT_KEY_bracketleft = 0x005b,
+        TECMA_INPUT_KEY_braceleft = 0x007b,
+        TECMA_INPUT_KEY_bracketright = 0x005d,
+        TECMA_INPUT_KEY_braceright = 0x007d,
+        TECMA_INPUT_KEY_backslash = 0x005c,
+        TECMA_INPUT_KEY_bar = 0x007c,
+        #endif
+
+    };
+    
     enum TecmaInfoFlag {
         TECMA_INFO_AVAILABLE_VK_INSTANCE_EXT = 0,
         TECMA_INFO_AVAILABLE_VK_INSTANCE_LAY = 1,
@@ -194,6 +322,140 @@ namespace TecmaEngine {
         VK_FUNCTION_FLAG_VK_CREATE_FRAMEBUFFER = 22,
 
     };
+
+    inline static const char* GetTecmaInputFlagName(
+        const TecmaInputFlag& __inFlag
+    ) {
+        switch( __inFlag ) {
+            #if defined(__TECMA_XLIB)
+            case TECMA_INPUT_KEY_F1: return "F1";
+            case TECMA_INPUT_KEY_F2: return "F2";
+            case TECMA_INPUT_KEY_F3: return "F3";
+            case TECMA_INPUT_KEY_F4: return "F4";
+            case TECMA_INPUT_KEY_F5: return "F5";
+            case TECMA_INPUT_KEY_F6: return "F6";
+            case TECMA_INPUT_KEY_F7: return "F7";
+            case TECMA_INPUT_KEY_F8: return "F8";
+            case TECMA_INPUT_KEY_F9: return "F9";
+            case TECMA_INPUT_KEY_F10: return "F10";
+            case TECMA_INPUT_KEY_F11: return "F11";
+            case TECMA_INPUT_KEY_F12: return "F12"; 
+            case TECMA_INPUT_KEY_0: return "0";
+            case TECMA_INPUT_KEY_1: return "1";
+            case TECMA_INPUT_KEY_2: return "2";
+            case TECMA_INPUT_KEY_3: return "3";
+            case TECMA_INPUT_KEY_4: return "4";
+            case TECMA_INPUT_KEY_5: return "5";
+            case TECMA_INPUT_KEY_6: return "6";
+            case TECMA_INPUT_KEY_7: return "7";
+            case TECMA_INPUT_KEY_8: return "8";
+            case TECMA_INPUT_KEY_9: return "9";
+            case TECMA_INPUT_KEY_grave: return "~";
+            case TECMA_INPUT_KEY_exclam: return "!";
+            case TECMA_INPUT_KEY_at: return "@";
+            case TECMA_INPUT_KEY_numbersign: return "#";
+            case TECMA_INPUT_KEY_dollar: return "$";
+            case TECMA_INPUT_KEY_percent: return "%";
+            case TECMA_INPUT_KEY_asciicircum: return "^";
+            case TECMA_INPUT_KEY_ampersand: return "&";
+            case TECMA_INPUT_KEY_asterisk: return "*";
+            case TECMA_INPUT_KEY_parenleft: return "(";
+            case TECMA_INPUT_KEY_parenright: return ")";
+            case TECMA_INPUT_KEY_underscore: return "_";
+            case TECMA_INPUT_KEY_plus: return "+";
+            case TECMA_INPUT_KEY_minus: return "-";
+            case TECMA_INPUT_KEY_equal: return "=";
+            case TECMA_INPUT_KEY_A: return "A";
+            case TECMA_INPUT_KEY_B: return "B";
+            case TECMA_INPUT_KEY_C: return "C";
+            case TECMA_INPUT_KEY_D: return "D";
+            case TECMA_INPUT_KEY_E: return "E";
+            case TECMA_INPUT_KEY_F: return "F";
+            case TECMA_INPUT_KEY_G: return "G";
+            case TECMA_INPUT_KEY_H: return "H";
+            case TECMA_INPUT_KEY_I: return "I";
+            case TECMA_INPUT_KEY_J: return "J";
+            case TECMA_INPUT_KEY_K: return "K";
+            case TECMA_INPUT_KEY_L: return "L";
+            case TECMA_INPUT_KEY_M: return "M";
+            case TECMA_INPUT_KEY_N: return "N";
+            case TECMA_INPUT_KEY_O: return "O";
+            case TECMA_INPUT_KEY_P: return "P";
+            case TECMA_INPUT_KEY_Q: return "Q";
+            case TECMA_INPUT_KEY_R: return "R";
+            case TECMA_INPUT_KEY_S: return "S";
+            case TECMA_INPUT_KEY_T: return "T";
+            case TECMA_INPUT_KEY_U: return "U";
+            case TECMA_INPUT_KEY_V: return "V";
+            case TECMA_INPUT_KEY_W: return "W";
+            case TECMA_INPUT_KEY_X: return "X";
+            case TECMA_INPUT_KEY_Y: return "Y";
+            case TECMA_INPUT_KEY_Z: return "Z";
+            case TECMA_INPUT_KEY_a: return "a";
+            case TECMA_INPUT_KEY_b: return "b";
+            case TECMA_INPUT_KEY_c: return "c";
+            case TECMA_INPUT_KEY_d: return "d";
+            case TECMA_INPUT_KEY_e: return "e";
+            case TECMA_INPUT_KEY_f: return "f";
+            case TECMA_INPUT_KEY_g: return "g";
+            case TECMA_INPUT_KEY_h: return "h";
+            case TECMA_INPUT_KEY_i: return "i";
+            case TECMA_INPUT_KEY_j: return "j";
+            case TECMA_INPUT_KEY_k: return "k";
+            case TECMA_INPUT_KEY_l: return "l";
+            case TECMA_INPUT_KEY_m: return "m";
+            case TECMA_INPUT_KEY_n: return "n";
+            case TECMA_INPUT_KEY_o: return "o";
+            case TECMA_INPUT_KEY_p: return "p";
+            case TECMA_INPUT_KEY_q: return "q";
+            case TECMA_INPUT_KEY_r: return "r";
+            case TECMA_INPUT_KEY_s: return "s";
+            case TECMA_INPUT_KEY_t: return "t";
+            case TECMA_INPUT_KEY_u: return "u";
+            case TECMA_INPUT_KEY_v: return "v";
+            case TECMA_INPUT_KEY_w: return "w";
+            case TECMA_INPUT_KEY_x: return "x";
+            case TECMA_INPUT_KEY_y: return "y";
+            case TECMA_INPUT_KEY_z: return "z";
+            case TECMA_INPUT_KEY_UP: return "UP";
+            case TECMA_INPUT_KEY_DOWN: return "DOWN";
+            case TECMA_INPUT_KEY_LEFT: return "LEFT";
+            case TECMA_INPUT_KEY_RIGHT: return "RIGHT";
+            case TECMA_INPUT_KEY_SPACE: return "SPACE";
+            case TECMA_INPUT_KEY_ESC: return "ESC";
+            case TECMA_INPUT_KEY_ENTER: return "ENTER";
+            case TECMA_INPUT_KEY_BACKSPACE: return "BACKSPACE";
+            case TECMA_INPUT_KEY_TAB: return "TAB";
+            case TECMA_INPUT_KEY_TILDE: return "`";
+            case TECMA_INPUT_KEY_CAPSLOCK: return "CAPSLOCK";
+            case TECMA_INPUT_KEY_L_ALT: return "L_ALT";
+            case TECMA_INPUT_KEY_R_ALT: return "R_ALT";
+            case TECMA_INPUT_KEY_L_CTRL: return "L_CTRL";
+            case TECMA_INPUT_KEY_R_CTRL: return "R_CTRL";
+            case TECMA_INPUT_KEY_L_SHIFT: return "L_SHIFT";
+            case TECMA_INPUT_KEY_R_SHIFT: return "R_SHIFT";
+            case TECMA_INPUT_KEY_comma: return ",";
+            case TECMA_INPUT_KEY_less: return "<";
+            case TECMA_INPUT_KEY_period: return ".";
+            case TECMA_INPUT_KEY_greater: return ">";
+            case TECMA_INPUT_KEY_slash: return "/";
+            case TECMA_INPUT_KEY_question: return "?";
+            case TECMA_INPUT_KEY_semicolon: return ";";
+            case TECMA_INPUT_KEY_colon: return ":";
+            case TECMA_INPUT_KEY_apostrophe: return "'";
+            case TECMA_INPUT_KEY_quotedbl: return "\"";
+            case TECMA_INPUT_KEY_bracketleft: return "[";
+            case TECMA_INPUT_KEY_braceleft: return "{";
+            case TECMA_INPUT_KEY_bracketright: return "]";
+            case TECMA_INPUT_KEY_braceright: return "}";
+            case TECMA_INPUT_KEY_backslash: return "\\";
+            case TECMA_INPUT_KEY_bar: return "|";
+            #endif
+            default: return "TECMA_INPUT_KEY_UNKNOWN";
+
+        }
+
+    }
 
     inline static const char* GetTecmaInfoFlagMessage(
         const TecmaInfoFlag& __infoFlag

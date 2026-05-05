@@ -4,11 +4,11 @@ namespace TecmaEngine {
     TecmaVkRenderPass_t::TecmaVkRenderPass_t() noexcept {}
         
     TecmaVkRenderPass_t::TecmaVkRenderPass_t(
-        const TecmaVkRenderPass_t& __other
+        TecmaVkRenderPass_t& __other
     ) noexcept {}
         
     TecmaVkRenderPass_t::TecmaVkRenderPass_t(
-        const TecmaVkRenderPass_t&& __other
+        TecmaVkRenderPass_t&& __other
     ) noexcept {}
 
     void TecmaVkRenderPass_t::BeginRenderPass(

@@ -16,11 +16,11 @@ namespace TecmaEngine {
         explicit TecmaWindow_t() noexcept;
         
         explicit TecmaWindow_t(
-            const TecmaWindow_t& __other
+            TecmaWindow_t& __other
         ) noexcept;
         
         explicit TecmaWindow_t(
-            const TecmaWindow_t&& __other
+            TecmaWindow_t&& __other
         ) noexcept;
 
         ~TecmaWindow_t() noexcept;
@@ -31,8 +31,15 @@ namespace TecmaEngine {
 
         void DestroyWindow();
 
+        void CheckForEvents() noexcept;
+
         TecmaBool __open;
         TecmaVkSurfaceDependencies_t __surfDep;
+
+        private:
+            #if defined(__TECMA_XLIB)
+                Atom __WM_CLOSE;
+            #endif
 
     };
 

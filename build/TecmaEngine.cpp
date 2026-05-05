@@ -49,19 +49,7 @@ int main(
 
     while( __wnd.__open ) {
         #if defined(__TECMA_XLIB)
-            XEvent __eve;
-            while( XPending( __wnd.__surfDep.__dsp ) ) { 
-                XNextEvent( 
-                    __wnd.__surfDep.__dsp, 
-                    &__eve 
-                );
-
-                if( // temporary escape from loop so i dont need to pkill TecmaEngine every fucking time
-                    __eve.type == KeyPress ||
-                    __eve.type == ButtonPress
-                ) { __wnd.__open = __TECMA_FALSE; }
-            
-            }
+            __wnd.CheckForEvents();
     
         #endif
     
@@ -76,4 +64,5 @@ int main(
 
 }
 
+// ignore this, you can see what it was, now its relict of the past.
 // g++ -o0 build/Te.cpp include/_*/*.cpp -Iinclude/*.h -o build/app -lvulkan

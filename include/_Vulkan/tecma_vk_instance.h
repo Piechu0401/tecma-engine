@@ -6,12 +6,15 @@
 namespace TecmaEngine {
     struct TecmaVkInstance_t {
         explicit TecmaVkInstance_t() noexcept;
+        
         explicit TecmaVkInstance_t(
-            const TecmaVkInstance_t& __other
+            TecmaVkInstance_t& __other
         ) noexcept;
+        
         explicit TecmaVkInstance_t(
-            const TecmaVkInstance_t&& __other
+            TecmaVkInstance_t&& __other
         ) noexcept;
+        
         ~TecmaVkInstance_t() noexcept;
 
         VkInstance __inst;
