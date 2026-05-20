@@ -14,7 +14,8 @@ namespace TecmaEngine {
         TecmaVulkan_t::~TecmaVulkan_t() noexcept {}
 
         void TecmaVulkan_t::CreateVulkan(
-            TecmaVkSurfaceDependencies_t& __dep
+            TecmaVkSurfaceDependencies_t& __dep,
+            const std::vector<std::string>& __shaderDirs
         ) {
             TecmaVkInstanceLayersSupported();
             TecmaVkInstanceExtensionsSupported();
@@ -37,6 +38,14 @@ namespace TecmaEngine {
                 __device,
                 __dep
             );
+
+            __descriptorResources.resize( __shaderDirs.size() );
+
+            for( int __i{0}; __i < __shaderDirs.size(); ++__i )
+                __descriptorResources[__i].CreateVkDescriptorResources(
+                    __shaderDirs[__i],
+                    { __TECMA_VERT_SHADER_EXT }
+                );
 
         }
 

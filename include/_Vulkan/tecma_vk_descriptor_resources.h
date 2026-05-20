@@ -20,10 +20,8 @@ namespace TecmaEngine {
         std::vector<VkDescriptorSetLayout> __descSetsLays;
         
         void CreateVkDescriptorResources(
-            const VkDevice& __dev,
-            const unsigned int& __descCount,
-            const std::vector<VkDescriptorPoolSize>& __descPoolSizes,
-            const std::vector<VkDescriptorSetLayoutBinding>& __descBinds
+            const std::string& __shaderPath,
+            const std::vector<std::string>& __shaderExts
         );
 
         void DestroyVkDescriptorResources(
@@ -32,20 +30,25 @@ namespace TecmaEngine {
 
         private:
             void CreateDescriptorPool(
-                const VkDevice& __dev,
-                const std::vector<VkDescriptorPoolSize>& __descPoolSizes
+            
             );
 
             void CreateDescriptorSetLayouts(
-                const VkDevice& __dev,
-                const std::vector<VkDescriptorSetLayoutBinding>& __descBinds
+            
             );
 
             void AllocateDescriptorSets(
-                const VkDevice& __dev
+            
             );
 
             void UpdateDescriptorSets();
+            
+            void InterpretInstruction(
+                const unsigned int* __data,
+                int& __idx,
+                const unsigned int& __opcode,
+                const unsigned int& __count
+            );
 
     };
 

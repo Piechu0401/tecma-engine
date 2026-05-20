@@ -115,4 +115,13 @@ namespace TecmaEngine {
         
     }
 
+    void TecmaLogger_t::operator()(
+        const char* __customMsg
+    ) const {
+        printf(
+            "%s", __customMsg
+        );
+
+    }
+
 };

@@ -14,6 +14,10 @@
     #include "tecma_vk_device.h"
 #endif
 
+#ifndef __TECMA_VK_DESCRIPTOR_RESOURCES_H
+    #include "tecma_vk_descriptor_resources.h"
+#endif
+
 #ifndef __TECMA_VK_RENDERER_H
     #include "tecma_vk_renderer.h"
 #endif
@@ -33,8 +37,10 @@ namespace TecmaEngine {
         ~TecmaVulkan_t() noexcept;
 
         void CreateVulkan(
-            TecmaVkSurfaceDependencies_t& __dep
+            TecmaVkSurfaceDependencies_t& __dep,
+            const std::vector<std::string>& __shaderDirs
         );
+
         void DestroyVulkan();
 
         private:
@@ -42,6 +48,7 @@ namespace TecmaEngine {
         TecmaVkInstance_t __instance;
         TecmaVkDebugUtils_t __debugUtils;
         TecmaVkDevice_t __device;
+        std::vector<TecmaVkDescriptorResources_t> __descriptorResources;
         TecmaVkRenderer_t __renderer;
 
     };

@@ -4,7 +4,9 @@
 #include <algorithm>
 #include <array>
 #include <vector>
-#include <string.h>
+#include <string>
+#include <cstring>
+#include <filesystem>
 
 #ifndef __TECMA_LOGGER_H
     #include "tecma_logger.h"
@@ -41,10 +43,6 @@
     #define __TECMA_ENGINE_VERSION 0
 #endif
 
-#ifndef __TECMA_INPUT_H
-    #include "../_Platform/tecma_input.h"
-#endif
-
 #define __TECMA_INIT_WND_W 1000
 #define __TECMA_INIT_WND_H 1000
 #define __TECMA_INIT_WND_X 0
@@ -66,13 +64,18 @@ namespace TecmaEngine {
 
     };
 
-    // logger object, yeah yeah cry about how its used
-    static TecmaLogger_t TecmaLogger;
+    inline const std::string ReadUTF8(
+        const std::vector<char>& __src
+    ) {
+        std::string __res{""};
 
-    // input object, anything you will press will be harshly
-    // judged by this individual
-    static TecmaInput_t TecmaInput;
-    
+        for( auto& __b : __src ) 
+            __res += __b;
+
+        return __res;
+
+    }
+ 
 };
 
 #endif

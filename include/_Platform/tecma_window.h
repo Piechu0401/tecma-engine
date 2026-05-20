@@ -9,7 +9,13 @@
     #include <windows.h>
 #endif
 
-#include "../_Core/tecma_core.h"
+#ifndef __TECMA_CORE_H
+    #include "../_Core/tecma_core.h"
+#endif
+
+#ifndef __TECMA_INPUT_H
+    #include "../_Platform/tecma_input.h"
+#endif
 
 namespace TecmaEngine {
     struct TecmaWindow_t {

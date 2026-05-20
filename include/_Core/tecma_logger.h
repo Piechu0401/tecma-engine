@@ -59,7 +59,14 @@ namespace TecmaEngine {
             const char* __attr
         ) const;
 
+        void operator()(
+            const char* __customMsg
+        ) const;
+
     };
+
+    // logger object, yeah yeah cry about how its used
+    static TecmaLogger_t TecmaLogger;
 
 };
 

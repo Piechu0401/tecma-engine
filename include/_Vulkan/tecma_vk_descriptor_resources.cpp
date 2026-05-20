@@ -1,4 +1,5 @@
 #include "tecma_vk_descriptor_resources.h"
+#include <filesystem>
 
 namespace TecmaEngine {
     TecmaVkDescriptorResources_t::TecmaVkDescriptorResources_t() noexcept {}
@@ -53,103 +54,58 @@ namespace TecmaEngine {
 
     }
 
-    void TecmaVkDescriptorResources_t::CreateVkDescriptorResources(
-        const VkDevice& __dev,
-        const unsigned int& __descCount,
-        const std::vector<VkDescriptorPoolSize>& __descPoolSizes,
-        const std::vector<VkDescriptorSetLayoutBinding>& __descBinds
+    void TecmaVkDescriptorResources_t::InterpretInstruction(
+        const unsigned int* __data,
+        int& __idx,
+        const unsigned int& __opcode,
+        const unsigned int& __count
     ) {
-        __descSetsLays.resize( __descCount );
-        __descSets.resize( __descCount );
+        if( __opcode == TECMA_SPV_OP_ENTRY_POINT ) {
+            // 4th index stores entry point literal name
+            // so we can decode it and fetch valuable info
+            // its not like most of the time its just main, but who cares
 
-        CreateDescriptorPool(
-            __dev,
-            __descPoolSizes
-        );
+            unsigned long __encoded = __data[__idx + 3];
+            
 
-        CreateDescriptorSetLayouts(
-            __dev,
-            __descBinds
-        );
 
-        AllocateDescriptorSets(
-            __dev
-        );
+        }
+
+        // printf( "opcode: %u count: %u\n", __opcode, __count );
+        // for( int __i{0}; __i < __count; ++__i ) {
+        //     printf(
+        //         "\t%u ",
+        //         *(__data + __idx + __i)
+        //     );
+        // 
+        // }
+        printf("\n");
+
+    }
+
+    void TecmaVkDescriptorResources_t::CreateVkDescriptorResources(
+        const std::string& __shaderPath,
+        const std::vector<std::string>& __shaderExts
+    ) {
 
     }
 
     void TecmaVkDescriptorResources_t::CreateDescriptorPool(
-        const VkDevice& __dev,
-        const std::vector<VkDescriptorPoolSize>& __descPoolSizes
+    
     ) {
-        VkDescriptorPoolCreateInfo __info{};
-
-        __info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-        __info.pNext = NULL;
-        __info.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
-        __info.poolSizeCount = (unsigned int)(__descPoolSizes.size());
-        __info.pPoolSizes = __descPoolSizes.data();
-        __info.maxSets = 100;
-
-        TecmaLogger(
-            (TecmaVkResult)vkCreateDescriptorPool(
-                __dev,
-                &__info,
-                NULL,
-                &__descPool
-            ),
-            VK_FUNCTION_FLAG_VK_CREATE_DESCRIPTOR_POOL
-        );
-
+        
     }
 
     void TecmaVkDescriptorResources_t::CreateDescriptorSetLayouts(
-        const VkDevice& __dev,
-        const std::vector<VkDescriptorSetLayoutBinding>& __descBinds
+        
     ) {
-        VkDescriptorSetLayoutCreateInfo __info{};
-
-        __info.sType = 
-            VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-        __info.pNext = NULL;
-        __info.flags = 0;
-        __info.bindingCount = (unsigned int)(__descBinds.size());
-        __info.pBindings = __descBinds.data();
-
-        for( int __i{0}; __i < __descSetsLays.size(); ++__i )
-            TecmaLogger(
-                (TecmaVkResult)vkCreateDescriptorSetLayout(
-                    __dev,
-                    &__info,
-                    NULL,
-                    &__descSetsLays[__i]
-                ),
-                VK_FUNCTION_FLAG_VK_CREATE_DESCRIPTOR_SET_LAYOUT
-            );
-
+    
     }
 
     void TecmaVkDescriptorResources_t::AllocateDescriptorSets(
-        const VkDevice& __dev
+    
     ) {
-        VkDescriptorSetAllocateInfo __info{};
-
-        __info.sType =
-            VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-        __info.pNext = NULL;
-        __info.descriptorPool = __descPool;
-        __info.descriptorSetCount = (unsigned int)(__descSets.size());
-        __info.pSetLayouts = __descSetsLays.data();
-
-        TecmaLogger(
-            (TecmaVkResult)vkAllocateDescriptorSets(
-                __dev,
-                &__info,
-                __descSets.data()
-            ),
-            VK_FUNCTION_FLAG_VK_ALLOCATE_DESCRIPTOR_SET
-        );
-
+    
     }
 
 };

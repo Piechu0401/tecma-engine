@@ -1,5 +1,13 @@
+#ifndef __TECMA_INPUT_H
+    #include "../include/_Platform/tecma_input.h"
+#endif
+
 #ifndef __TECMA_WINDOW_H
     #include "../include/_Platform/tecma_window.h"
+#endif
+
+#ifndef __TECMA_SPV_SHADER_H
+    #include "../include/_Data/tecma_spv_shader.h"
 #endif
 
 #ifndef __TECMA_VULKAN_H
@@ -22,7 +30,10 @@ inline static void InitTecmaEngine(
             .__title = __TECMA_ENGINE_NAME,
         }
     );
-    __vk.CreateVulkan( __wnd.__surfDep );
+    __vk.CreateVulkan( 
+        __wnd.__surfDep, 
+        { "../TecmaEngine/shaders" }
+    );
 
 }
 
@@ -39,25 +50,39 @@ int main(
     const int __argc,
     const char* __argv[]
 ) {
-    TecmaEngine::TecmaWindow_t __wnd;
-    TecmaEngine::TecmaVulkan_t __vk;
+    // TecmaEngine::TecmaWindow_t __wnd;
+    // TecmaEngine::TecmaVulkan_t __vk;
 
-    InitTecmaEngine(
-        __wnd,
-        __vk
-    );
+    // InitTecmaEngine(
+    //     __wnd,
+    //     __vk
+    // );
 
-    while( __wnd.__open ) {
-        #if defined(__TECMA_XLIB)
-            __wnd.CheckForEvents();
+    // while( __wnd.__open ) {
+    //     #if defined(__TECMA_XLIB)
+    //         __wnd.CheckForEvents();
+    // 
+    //     #endif
+    // 
+    // }
+
+    //ShutdownTecmaEngine(
+    //    __wnd,
+    //    __vk
+    //);
+
+    TecmaEngine::TecmaSpvShader_t __shader;
+
+    const char* __path{"../TecmaEngine/shaders/shad.vert.spv"};
+
+    TecmaEngine::TecmaFileByteData<unsigned char> __data{
+        TecmaEngine::TecmaInput.ReadFileData<unsigned char>(
+            __path
+        )
+    };
     
-        #endif
-    
-    }
-
-    ShutdownTecmaEngine(
-        __wnd,
-        __vk
+    __shader.FetchShaderData(
+        __data
     );
 
     return 0;
